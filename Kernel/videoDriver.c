@@ -1,5 +1,6 @@
 #include "videoDriver.h"
 #include "lib.h"
+#include "font.h"
 
 struct vesa_mode {
 	uint16_t attributes;		// deprecated, only bit 7 should be of interest to you, and it indicates the mode supports a linear frame buffer.
@@ -41,10 +42,49 @@ struct vesa_mode {
 
    struct vesa_mode * screen = (struct vesa_mode*)0x0000000000005C00;
 
+	 int getWidth(){
+		 return screen->width;
+	 }
+
+	 int getHeight(){
+		 return screen->height;
+	 }
+
    void writePixel(int width, int height, struct RGB color){
+		 if(width > screen->width || height > screen->height || width <0 || height < 0)
+			 return;
+
      int pixelIndex = width + height*(screen->width);
      char * pixelPos = (char*)(screen->framebuffer + pixelIndex*(screen->bpp/8));
-     *(pixelPos+2) = color.red;
-     *(pixelPos+1) = color.green;
-     *(pixelPos) = color.blue;
+			*(pixelPos+2) = color.red;
+	   *(pixelPos+1) = color.green;
+	   *(pixelPos) = color.blue;
    }
+
+	 void writeBlock(int width, int height, struct RGB color, int size){
+		 for(int i = width; i < width+size; i++){
+			 for(int j = height; j < height+size; j++){
+				 writePixel(i, j, color);
+			 }
+		 }
+	 }
+
+	 void writeNormalChar(char c, int x, int y, struct RGB color, int size){
+		 struct bitmap_font font = {
+			 8,0,0,NULL,NULL,getBitMap()
+		 }
+		 writeChar(c, x, y, color, size, font);
+	 }
+
+	 void writeChar(char c, int x, int y, struct RGB color, int size, struct bitmap_font font){
+			for(int j = 8, int done = 0; done < font.Width; done++) {
+			 if(font.Bitmap[c*13+j] != 0){
+				 int k=1;
+				 for(int i = font.Width-1; i >= 0; i--, k*=2){
+						if(k & font.Bitmap[c*13+j]){
+							writeBlock(i*size + x, j*size + y, color, size);
+						}
+				 }
+			 }
+			}
+	 }
