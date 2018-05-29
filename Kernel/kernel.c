@@ -4,6 +4,8 @@
 #include <moduleLoader.h>
 #include <naiveConsole.h>
 
+#include "videoDriver.h"
+
 extern uint8_t text;
 extern uint8_t rodata;
 extern uint8_t data;
@@ -81,7 +83,7 @@ void * initializeKernelBinary()
 }
 
 int main()
-{	
+{
 	ncPrint("[Kernel Main]");
 	ncNewline();
 	ncPrint("  Sample code module at 0x");
@@ -100,5 +102,20 @@ int main()
 	ncNewline();
 
 	ncPrint("[Finished]");
+
+	//pintar una linea
+	struct RGB color1={255,0,0}, color2={0,255,0}, color3={0,0,255};
+	int i,j,k;
+	for(i=0; i < 100; i++){
+		writePixel(i,i,color1);
+	}
+	for(j=i; j < 200; j++){
+		writePixel(j,j,color2);
+	}
+	for(k=j; k < 300; k++){
+		writePixel(k,k,color3);
+	}
+
+
 	return 0;
 }
