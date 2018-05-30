@@ -1,6 +1,6 @@
 // (c) 2009, 2010 Lutz Sammer, License: AGPLv3
 
-unsigned char getBitMap();
+struct bitmap_font getFont();
 
 	/// bitmap font structure
 struct bitmap_font {
