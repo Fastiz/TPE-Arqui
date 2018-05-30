@@ -1,4 +1,5 @@
 #include <time.h>
+#include <keyboard_driver.h>
 #include <stdint.h>
 
 static void int_20();
@@ -20,5 +21,5 @@ void int_20() {
 	timer_handler();
 }
 void int_21() {
-	//Rutina de interrupción del teclado a implementar.
+	keyboard_handler();	
 }
