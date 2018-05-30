@@ -107,19 +107,17 @@ int main()
 	struct RGB color1={255,0,0}, color2={0,255,0}, color3={0,0,255};
 	int i,j,k;
 	writeChar(146, 43,43,color1,1);
-	writeString("Facu holaq", 54,56,color1,3);
+	writeString("asd", 54,56,color1,3);
+	struct RGB colorasd = readPixel(54,56+9);
 	double x = 0;
 	while(x < 3230050)
 		x+=0.1;
-	fillScreen(color3);
-	backupScreen();
+
 	clearScreen();
-	writeString("asd",54,54,color1,5);
 	x=0;
 	while(x < 3230050)
 		x+=0.1;
 	restoreScreen();
-	writeChar(' ', 43,43,color1,5);
 
 
 

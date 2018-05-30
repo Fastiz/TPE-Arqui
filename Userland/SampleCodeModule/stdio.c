@@ -9,7 +9,7 @@ void printf(char* format, ...){
 	while(format != 0){
 		if(format++ == '%'){
 			if(format == 'd')
-
+				// https://stackoverflow.com/questions/1735236/how-to-write-my-own-printf-in-c
 		}
 	}
 }

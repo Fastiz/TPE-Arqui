@@ -11,11 +11,11 @@ int line=0, linePosition=0;
 void main(){
 
 }
-
+/*
 void newLine(){
 
 }
 
 void keyboardPull(){
 
-}
+}*/
