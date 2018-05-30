@@ -7,3 +7,6 @@ void writeChar(char c, int x, int y, struct RGB color, int size);
 void writeString(char* string, int x, int y, struct RGB color, int size);
 void fillScreen(struct RGB color);
 void clearScreen();
+struct RGB readPixel(int width, int height);
+void restoreScreen();
+void backupScreen();
