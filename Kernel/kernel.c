@@ -106,9 +106,12 @@ int main()
 	//pintar una linea
 	struct RGB color1={255,0,0}, color2={0,255,0}, color3={0,0,255};
 	int i,j,k;
-	writeChar(255, 43,43,color1,1);
+	writeChar(146, 43,43,color1,1);
 	writeString("Facu holaq", 54,56,color1,3);
-
+	double x = 0;
+	while(x < 1230050)
+		x+=0.1;
+	clearScreen();
 
 	return 0;
 }

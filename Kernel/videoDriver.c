@@ -87,3 +87,17 @@ struct vesa_mode {
 	 		string++;
 	 	}
 	 }
+
+	 void fillScreen(struct RGB color){
+	 	for(int y = 0; y < screen->height; y++) {
+	 		for(int x = 0; x < screen->width; x++)
+	 			writePixel(x,y,color);
+	 	}
+	 }
+
+	 void clearScreen() {
+	 	struct RGB black={0,0,0};
+	 	fillScreen(black);
+	 }
+
+
