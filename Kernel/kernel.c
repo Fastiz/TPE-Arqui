@@ -3,7 +3,7 @@
 #include <lib.h>
 #include <moduleLoader.h>
 #include <naiveConsole.h>
-
+#include <idtLoader.h>
 #include "videoDriver.h"
 
 extern uint8_t text;
@@ -102,7 +102,7 @@ int main()
 	ncNewline();
 
 	ncPrint("[Finished]");
-
+	load_idt();
 	//pintar una linea
 	struct RGB color1={255,0,0}, color2={0,255,0}, color3={0,0,255};
 	int i,j,k;
