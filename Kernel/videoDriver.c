@@ -68,28 +68,22 @@ struct vesa_mode {
 		 }
 	 }
 
-	 void writeChar(char c, int x, int y, struct RGB color, int size, struct bitmap_font font){
-			int flag = 0;
-			for(int j = font.Height, done = font.Height - 1; done >= 0; done--) {
-			 	if(flag || font.Bitmap[c*font.Height+done] != 0){
-			 		flag =1;
-				 for(int i = 0, k = 128; i < font.Width; i++, k/=2){
-						if(k & font.Bitmap[c*13+done])
-							writeBlock(i*size + x, j*size + y, color, size);
-				 }
-				 j--;
+	 void writeChar(char c, int x, int y, struct RGB color, int size){
+	 		if(c < 32 || c > 255)
+	 			return;
+	 		char * posOfChar = getCharPos(c);
+			 for(int j = 0; j < charHeight ; j++) {
+				 for(int i = 0, k = 128; i < charWidth; i++, k/=2){
+				 	if(k & posOfChar[j])
+						writeBlock(i*size + x, j*size + y, color,size);
 			 }
 			}
 	 }
 
-	 void writeNormalChar(char c, int x, int y, struct RGB color, int size){
-		 writeChar(c, x, y, color, size, getFont());
-	 }
-
-	 void writeNormalString(char* string, int x, int y, struct RGB color, int size){
+	 void writeString(char* string, int x, int y, struct RGB color, int size){
 	 	while(*string != 0){
-	 		writeNormalChar(*string, x, y, color, size);
-	 		x += (getFont().Width + 1) * size;
+	 		writeChar(*string, x, y, color, size);
+	 		x += (charWidth + 1) * size;
 	 		string++;
 	 	}
 	 }

@@ -3480,6 +3480,6 @@ unsigned char __font_bitmap__[] = {
 	________,
 };
 
-char * getCharMap(char c) {
-	return __font_bitmap__ + (16 * c);
+char * getCharPos(char c) {
+	return __font_bitmap__ + (16 * (c-31));
 }

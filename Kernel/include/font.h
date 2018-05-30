@@ -1,16 +1,10 @@
 // (c) 2009, 2010 Lutz Sammer, License: AGPLv3
 
-struct bitmap_font getFont();
+char * getCharPos(char c);
 
-	/// bitmap font structure
-struct bitmap_font {
-	unsigned char Width;		///< max. character width
-	unsigned char Height;		///< character height
-	unsigned short Chars;		///< number of characters in font
-	const unsigned char *Widths;	///< width of each character
-	const unsigned short *Index;	///< encoding to character index
-	const unsigned char *Bitmap;	///< bitmap of all characters
-};
+
+#define charWidth 8
+#define charHeight 16
 
 	/// @{ defines to have human readable font files
 #define ________ 0x00

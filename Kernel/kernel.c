@@ -106,15 +106,8 @@ int main()
 	//pintar una linea
 	struct RGB color1={255,0,0}, color2={0,255,0}, color3={0,0,255};
 	int i,j,k;
-	for(i=0; i < 100; i++){
-		writePixel(i,i,color1);
-	}
-	for(j=i; j < 200; j++){
-		writePixel(j,j,color2);
-	}
-	for(k=j; k < 300; k++){
-		writePixel(k,k,color3);
-	}
+	writeChar(255, 43,43,color1,1);
+	writeString("Facu holaq", 54,56,color1,3);
 
 
 	return 0;
