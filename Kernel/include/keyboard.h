@@ -1,2 +1,2 @@
 
-char getKey();
+unsigned char getKey();
