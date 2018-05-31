@@ -110,7 +110,7 @@ void keyboard_handler() {
 
 char getNextChar() {
 	if(size == 0)
-		return -1;
+		return -1;	//Si no hay caracteres en el buffer retorna -1.
 	if(next >= BUFFER_SIZE)
 		next = 0;
 	size--;
