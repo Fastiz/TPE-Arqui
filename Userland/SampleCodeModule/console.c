@@ -25,10 +25,6 @@ void consoleLoop(){
   readStdout();
 }
 
-<<<<<<< HEAD
 readStdin(){
   //while()
 }
-=======
-}*/
->>>>>>> 3f2e484fefab7c648389da695129940d33c1bbb3
