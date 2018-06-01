@@ -1,6 +1,8 @@
 #include <stdint.h>
 #include "videoDriver.h"
 #include "syscallDispatcher.h"
+#include "rtc.h"
+#include "std_buffers.h"
 
 
 typedef uint64_t(*systemCall)(uint64_t a, uint64_t b, uint64_t c, uint64_t d);
