@@ -50,7 +50,11 @@ struct vesa_mode {
 		return screen->height;
 	}
 
+<<<<<<< Updated upstream
 	struct RGB readPixel(uint64_t width, uint64_t height) {
+=======
+	/*struct RGB readPixel(int width, int height) {
+>>>>>>> Stashed changes
 		struct RGB color = {0,0,0};
 		if(!(width > screen->width || height > screen->height || width < 0 || height < 0)) {
 			int pixelIndex = width + height*(screen->width);
@@ -60,7 +64,7 @@ struct vesa_mode {
 		    color.blue=*(pixelPos);
 	    }
 	    return color;
-	}
+	}*/
 
 	void writePixel(uint64_t width, uint64_t height, struct RGB color){
 		if(width > screen->width || height > screen->height || width < 0 || height < 0)
@@ -81,8 +85,13 @@ struct vesa_mode {
 		}
 	}
 
+<<<<<<< Updated upstream
 	void writeChar(char c, uint64_t x, uint64_t y, struct RGB color, uint64_t size){
 	 	if(c < 32 || c > 255) //falta ver el limite de c, no es 255 en esta fuente
+=======
+	/*void writeChar(char c, int x, int y, struct RGB color, int size){
+	 	if(c < 32 || c > 255)
+>>>>>>> Stashed changes
 	 		return;
 	 	char * posOfChar = getCharPos(c);
 		for(int j = 0; j < charHeight ; j++) {
@@ -91,15 +100,19 @@ struct vesa_mode {
 					writeBlock(i*size + x, j*size + y, color,size);
 		 	}
 		}
-	}
+	}*/
 
+<<<<<<< Updated upstream
 	void writeString(char* string, uint64_t x, uint64_t y, struct RGB color, uint64_t size){
+=======
+	/*void writeString(char* string, int x, int y, struct RGB color, int size){
+>>>>>>> Stashed changes
 	 	while(*string != 0){
 	 		writeChar(*string, x, y, color, size);
 	 		x += (charWidth + 1) * size;
 	 		string++;
 	 	}
-	}
+	}*/
 
 	void fillScreen(struct RGB color){
 	 	for(int y = 0; y < getHeight(); y++) {
