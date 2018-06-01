@@ -108,16 +108,6 @@ int main()
 	//pintar una linea
 	struct RGB color1={255,0,0}, color2={0,255,0}, color3={0,0,255}, black={0,0,0};
 	int i,j,k;
-	fillScreen(color2);
-	for(int x=0;x*13<getHeight();x++)
-		writeString("AS", 0, 16*3*x,color1,3);
-	double x = 0;
-	while(x < 3230050)
-		x+=0.1;
-
-	moveScreenUp(3,1, color2);
-
-
 
 	return 0;
 }

@@ -2,7 +2,9 @@
 #define STD_IN 1
 #define STD_ERR 2
 
+void setUpBuffers();
 void clearBuffer(int index);
 int writeCharBuffer(int index, char character);
 int writeStrBuffer(int index, char * str);
-char * readBuffer(int index);
+char readCharBuffer(int index);
+int readStrBuffer(int index, char * str);
