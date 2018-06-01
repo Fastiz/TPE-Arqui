@@ -1,4 +1,4 @@
-
+/*
 #define ROW_HEIGHT 16
 #define LETTER_WIDTH 9
 #define HORIZONTAL_MARGIN 2
@@ -10,7 +10,7 @@ int line=0, linePosition=0;
 
 void main(){
 
-}
+}*/
 /*
 void newLine(){
 
