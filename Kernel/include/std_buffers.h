@@ -5,6 +5,7 @@
 void setUpBuffers();
 void clearBuffer(int index);
 int writeCharBuffer(int index, char character);
+int writeIntBuffer(int index, int value,int base);
 int writeStrBuffer(int index, char * str);
 char readCharBuffer(int index);
-int readStrBuffer(int index, char * str);
+int readStrBuffer(int index, char * str,int size);
