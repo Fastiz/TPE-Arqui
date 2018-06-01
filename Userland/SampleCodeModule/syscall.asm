@@ -1,8 +1,8 @@
-GLOBAL system
+GLOBAL syscall
 
 section .text
 
-system:
+syscall:
   enter 0,0
 
   int 80h
