@@ -1,4 +1,4 @@
-void writeBlock(uint64_t width, uint64_t height, struct RGB color, uint64_t size){
+/*void writeBlock(uint64_t width, uint64_t height, struct RGB color, uint64_t size){
 	for(int i = width; i < width+size; i++){
 		for(int j = height; j < height+size; j++){
 			writePixel(i, j, color);
@@ -61,3 +61,4 @@ void restoreScreen() {
 			writePixel(x,y,backup[x][y]);
 	}
 }
+*/
