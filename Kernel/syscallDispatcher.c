@@ -2,7 +2,18 @@
 #include "videoDriver.h"
 
 
-typedef (uint64_t(*func)(uint64_t, uint64_t, uint64_t, uint64_t));
+typedef (uint64_t(*systemCall)(uint64_t, uint64_t, uint64_t, uint64_t));
+
+systemCall sysCalls[] = { 0, 0, 0, 
+  _writePixel,
+  _readPixel,
+  _getWidth,
+  _getHeight,
+  _writeBuffer,
+  _readBuffer,
+  _clearBuffer,
+  _readTime
+}
 
 uint64_t _writePixel(uint64_t width, uint64_t height, uint64_t color, uint64_t trash1){
   writePixel(width, height, (struct RGB) color);
@@ -32,4 +43,14 @@ uint64_t _readBuffer(uint64_t index, uint64_t trash1, uint64_t trash2, uint64_t 
 uint64_t _clearBuffer(uint64_t index, uint64_t trash1, uint64_t trash2, uint64_t trash3){
   clearBuffer(index);
   return 0;
+}
+
+uint64_t _readTime(uint64_t time, uint64_t trash1, uint64_t trash2, uint64_t trash3) {
+  if(time == 0)
+    return getSeconds();
+  if(time == 1)
+    return getMinutes();
+  if(time == 2)
+    return getHour();
+  return -1; //si me pasaron un parametro invalido
 }
