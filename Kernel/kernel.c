@@ -104,20 +104,16 @@ int main()
 	ncPrint("[Finished]");
 	load_idt();
 	//pintar una linea
-	struct RGB color1={255,0,0}, color2={0,255,0}, color3={0,0,255};
+	struct RGB color1={255,0,0}, color2={0,255,0}, color3={0,0,255}, black={0,0,0};
 	int i,j,k;
-	writeChar(146, 43,43,color1,1);
-	writeString("asd", 54,56,color1,3);
-	struct RGB colorasd = readPixel(54,56+9);
+	fillScreen(color2);
+	for(int x=0;x*13<getHeight();x++)
+		writeString("AS", 0, 16*3*x,color1,3);
 	double x = 0;
 	while(x < 3230050)
 		x+=0.1;
 
-	clearScreen();
-	x=0;
-	while(x < 3230050)
-		x+=0.1;
-	restoreScreen();
+	moveScreenUp(3,1, color2);
 
 
 
