@@ -37,7 +37,23 @@ int writeCharBuffer(int index, char character) {
 			std_buffers[index].size++;
 	return 0;
 }
-
+int writeIntBuffer(int index, int value,int base) {
+	if(index > 2)
+		return -1;
+	int remainder;
+	char number[20];
+	int i = 0;
+	int digits = 0;
+	do
+	{		
+		remainder = value % base;
+		number[i++] = (remainder < 10) ? remainder + '0' : remainder + 'A' - 10;
+		digits++;
+	}
+	while (value /= base);
+	for(i = digits - 1; i >= 0; i--)
+		writeCharBuffer(index,number[i]);
+}
 int writeStrBuffer(int index, char * str) {
 	if(index > 2)
 		return -1;
@@ -61,12 +77,15 @@ char readCharBuffer(int index){
 	return character;
 }
 
-int readStrBuffer(int index, char * str) {
+int readStrBuffer(int index, char * str,int size) {
 	if(index > 2)
 		return -1;
 	int i;
-	for(i = 0; str[i] != 0; i++)
-		str[i]=readCharBuffer(index);
+	char character = readCharBuffer(index);
+	for(i = 0; character > 0 && i < size; i++){
+		str[i]=character;
+		character = readCharBuffer(index);
+	}
 	return 0;
 }
 
