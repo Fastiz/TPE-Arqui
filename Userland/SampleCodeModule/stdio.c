@@ -1,19 +1,35 @@
-#include "console.h"
-#include "videoDriver.h"
 #include "syscall.h"
+#include "stdio.h"
 
-extern int line, linePosition;
 
 void printf(char* format, ...){
-	int i = 0, parameterIndex;
-	while(format != 0){
-		if(format++ == '%'){
-			if(format == 'd')
-				// https://stackoverflow.com/questions/1735236/how-to-write-my-own-printf-in-c
+	int parameterIndex;
+	for(format; format != '0'; format++){
+		if(format == '%'){
+			format++;
+			switch () {
+				case d:
+					break;
+
+			}
+		}else{
+			putchar(format);
 		}
 	}
 }
 
 void putchar(char c){
+	write(_stdout);
+}
 
+char getchar(){
+	read(_stdin);
+}
+
+void write(char c, int dest){
+	syscall(_write, dest, c, 0, 0);
+}
+
+char read(int dest){
+	syscall(_read, dest, c, 0, 0);
 }

@@ -1,3 +1,10 @@
+
+struct RGB{
+  char red;
+  char green;
+  char blue;
+};
+
 void writeBlock(uint64_t width, uint64_t height, struct RGB color, uint64_t size);
 
 void writeChar(char c, uint64_t x, uint64_t y, struct RGB color, uint64_t size);
