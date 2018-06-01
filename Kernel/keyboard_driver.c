@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include <keyboard.h>
+#include <std_buffers.h>
 
-#define KEY_NUM 128
 #define BUFFER_SIZE 255
 #define CAPS_LOCK 0x3A
 #define R_SHIFT 0x36
@@ -9,7 +9,7 @@
 #define L_SHIFT 0x2A
 #define L_SHIFT_REALEASE 0xAA
 
-unsigned char keyboard[KEY_NUM] =
+unsigned char keyboard[128] =
 {
 	0,  27, '1', '2', '3', '4', '5', '6', '7', '8','9', '0', '-', '=', '\b',
 	'\t','q', 'w', 'e', 'r','t', 'y', 'u', 'i', 'o', 'p', '[', ']', '\n',
@@ -45,7 +45,7 @@ unsigned char keyboard[KEY_NUM] =
 	0,	// F12
 	0,	// Undefined 
 };
-unsigned char shift_keyboard[KEY_NUM] =
+unsigned char shift_keyboard[128] =
 {
 	0,  27, '!', '@', '#', '$', '%', '^', '&', '*','(', ')', '_', '+', 
 	'\b','\t','Q', 'W', 'E', 'R','T', 'Y', 'U', 'I', 'O', 'P', '{', '}', '\n', 
@@ -82,9 +82,6 @@ unsigned char shift_keyboard[KEY_NUM] =
 	0,  // Undefined
 };	
 
-unsigned char buffer[BUFFER_SIZE];
-int next = 0;
-int size = 0;
 int mayus = 0;
 
 void keyboard_handler() {
@@ -99,21 +96,8 @@ void keyboard_handler() {
 	//Si la interrupción es por una tecla que se soltó o no es imprimible, retorna.
 	if ((key & 0x80) != 0 || keyboard[key] == 0)
 		return;
-	if(size >= BUFFER_SIZE)
-		next++;
 	if(mayus)
-		buffer[(next+size) % BUFFER_SIZE] = shift_keyboard[key];
+		writeBuffer(STD_OUT,shift_keyboard[key]);
 	else
-		buffer[(next+size) % BUFFER_SIZE] = keyboard[key];
-	if(size < BUFFER_SIZE)
-		size++;
-}
-
-char getNextChar() {
-	if(size == 0)
-		return -1;	//Si no hay caracteres en el buffer retorna -1.
-	if(next >= BUFFER_SIZE)
-		next = 0;
-	size--;
-	return buffer[next++];
+		writeBuffer(STD_OUT,keyboard[key]);
 }
