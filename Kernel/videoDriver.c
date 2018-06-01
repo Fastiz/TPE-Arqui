@@ -42,15 +42,15 @@ struct vesa_mode {
 	struct vesa_mode * screen = (struct vesa_mode*)0x0000000000005C00;
 	struct RGB backup[1020][1000];
 
-	int getWidth(){
+	uint64_t getWidth(uint64_t trash1, uint64_t trash2, uint64_t trash3, uint64_t trash4){
 		return screen->width;
 	}
 
-	int getHeight(){
+	uint64_t getHeight(uint64_t trash1, uint64_t trash2, uint64_t trash3, uint64_t trash4){
 		return screen->height;
 	}
 
-	struct RGB readPixel(int width, int height) {
+	uint64_t readPixel(uint64_t width, uint64_t height, uint64_t trash1, uint64_t trash2) {
 		struct RGB color = {0,0,0};
 		if(!(width > screen->width || height > screen->height || width < 0 || height < 0)) {
 			int pixelIndex = width + height*(screen->width);
@@ -59,16 +59,17 @@ struct vesa_mode {
 		    color.green=*(pixelPos+1);
 		    color.blue=*(pixelPos);
 	    }
-	    return color;
+	    return (uint64_t)color;
 	}
 
-	void writePixel(uint64_t width, uint64_t height, struct RGB color){
+	uint64_t writePixel(uint64_t width, uint64_t height, uint64_t RGB color, uint64_t trash1){
+		struct RGB colorStructure = (struct RGB) color;
 		if(width > screen->width || height > screen->height || width < 0 || height < 0)
 			return;
 
 	    int pixelIndex = width + height*(screen->width);
 	    char * pixelPos = (char*)(screen->framebuffer + pixelIndex*(screen->bpp/8));
-		*(pixelPos+2) = color.red;
-		*(pixelPos+1) = color.green;
-		*(pixelPos) = color.blue;
+		*(pixelPos+2) = colorStructure.red;
+		*(pixelPos+1) = colorStructure.green;
+		*(pixelPos) = colorStructure.blue;
 	}
