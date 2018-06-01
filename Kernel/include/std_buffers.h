@@ -3,5 +3,6 @@
 #define STD_ERR 2
 
 void clearBuffer(int index);
-int writeBuffer(int index, char * str);
+int writeCharBuffer(int index, char character);
+int writeStrBuffer(int index, char * str);
 char * readBuffer(int index);
