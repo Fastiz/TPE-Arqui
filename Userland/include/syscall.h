@@ -1,4 +1,9 @@
 #include <stdint.h>
 
+#define _getWidth 3
+#define _getHeight 4
+#define _writePixel 5
+#define _readPixel 6
 
-int sinterrupt(uint8_t rax, uint8_t rbx, uint8_t rcx, uint8_t rdx);
+
+uint64_t syscall(uint64_t, uint64_t, uint64_t, uint64_t);

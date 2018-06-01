@@ -63,7 +63,7 @@ struct vesa_mode {
 	}
 
 	uint64_t writePixel(uint64_t width, uint64_t height, uint64_t color, uint64_t trash1){
-		struct RGB colorStructure = (struct RGB) color;
+		struct RGB colorStructure = (struct RGB*)color;
 		if(width > screen->width || height > screen->height || width < 0 || height < 0)
 			return;
 
