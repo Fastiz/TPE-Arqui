@@ -38,6 +38,7 @@ int writeCharBuffer(int index, char character) {
 			selectedBuffer.size++;
 	return 0;
 }
+
 int writeStrBuffer(int index, char * str) {
 	if(index > 2)
 		return -1;
@@ -46,7 +47,30 @@ int writeStrBuffer(int index, char * str) {
 		writeCharBuffer(index,str[i]);
 	return 0;
 }
-char * readBuffer(int index) {
+
+char readCharBuffer(int index){
+  if(index > 2)
+		return -1;
+	struct Buffer selectedBuffer = std_buffers[index];
+	//Si ya llego al limite de tamaño, el final del buffer se mueve al principio del arreglo.
+	if(selectedBuffer.size >= BUFFER_SIZE)
+			selectedBuffer.start++;
+	char character = selectedBuffer.buffer[(selectedBuffer.start + selectedBuffer.size) % BUFFER_SIZE];
+	if(selectedBuffer.size < BUFFER_SIZE)
+			selectedBuffer.size++;
+	return character;
+}
+
+int readStrBuffer(int index, char * str) {
+	if(index > 2)
+		return -1;
+	int i;
+	for(i = 0; str[i] != 0; i++)
+		str[i]=readCharBuffer(index);
+	return 0;
+}
+
+/*char * readStrBuffer(int index) {
 	if(index > 2)
 		return 0;
 	char buffer_copy[BUFFER_SIZE];
@@ -60,4 +84,4 @@ char * readBuffer(int index) {
 			break;
 	}
 	return buffer_copy;
-}
+}/*
