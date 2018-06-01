@@ -23,7 +23,7 @@ void syscallDispatcher(int index){
 }
 
 uint64_t _writePixel(uint64_t width, uint64_t height, uint64_t color, uint64_t trash1){
-  writePixel(width, height, &color);
+  writePixel(width, height, (struct RGB*)color);
   return 0;
 }
 
