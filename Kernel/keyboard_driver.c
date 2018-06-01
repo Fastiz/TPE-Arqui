@@ -97,7 +97,7 @@ void keyboard_handler() {
 	if ((key & 0x80) != 0 || keyboard[key] == 0)
 		return;
 	if(mayus)
-		writeBuffer(STD_OUT,shift_keyboard[key]);
+		writeCharBuffer(STD_OUT,shift_keyboard[key]);
 	else
-		writeBuffer(STD_OUT,keyboard[key]);
+		writeCharBuffer(STD_OUT,keyboard[key]);
 }
