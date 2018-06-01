@@ -76,6 +76,7 @@ struct vesa_mode {
 		*(pixelPos+1) = color.green;
 		*(pixelPos) = color.blue;
 	}
+<<<<<<< HEAD
 
 	void writeBlock(uint64_t width, uint64_t height, struct RGB color, uint64_t size){
 		for(int i = width; i < width+size; i++){
@@ -149,3 +150,5 @@ struct vesa_mode {
 	 			writePixel(x,y,backup[x][y]);
 	 	}
 	}
+=======
+>>>>>>> 56c86820cab510dee87cfcb77736ad3f364c72b7
