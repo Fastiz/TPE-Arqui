@@ -6,7 +6,7 @@ void _irq03Handler(void);
 void _irq04Handler(void);
 void _irq05Handler(void);
 
-void _syscallHandler(void);
+void _syscallHandler(uint64_t,uint64_t,uint64_t,uint64_t,uint64_t);
 
 void _exception0Handler(void);
 

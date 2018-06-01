@@ -7,6 +7,7 @@
 #include <std_buffers.h>
 #include "videoDriver.h"
 #include "syscallDispatcher.h"
+#include "interrupts.h"
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -109,9 +110,9 @@ int main()
 	//pintar una linea
 	struct RGB color1={255,0,0}, color2={0,255,0}, color3={0,0,255}, black={0,0,0};
 	int i,j,k;
-	syscallDispatcher(3, 5,5,(uint64_t)&color1,0);
+	//syscallDispatcher(3, 5,5,(uint64_t)&color1,0);
 	//_writePixel(5,5,(uint64_t)&color1,0);
-
+	_syscallHandler(3, 200,200,(uint64_t)&color2,0);
 
 	return 0;
 }

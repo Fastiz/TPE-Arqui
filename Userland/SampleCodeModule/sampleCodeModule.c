@@ -7,8 +7,8 @@ static int var2 = 0;
 
 
 int main() {
-	struct RGB color = {255, 0, 0};
-	syscall(_writePixel, 10, 10, (uint64_t)&color, 0);
+	struct RGB color = {255, 255, 0};
+	syscall(3, 10, 10, (uint64_t)&color, 0);
 
 	//Test if BSS is properly set up
 	if (var1 == 0 && var2 == 0)
