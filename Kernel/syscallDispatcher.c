@@ -3,7 +3,7 @@
 #include "syscallDispatcher.h"
 
 
-typedef (uint64_t(*systemCall)(uint64_t, uint64_t, uint64_t, uint64_t));
+typedef (uint64_t(*systemCall)(uint64_t a, uint64_t b, uint64_t c, uint64_t d));
 
 systemCall sysCalls[] = { 0, 0, 0,
   _writePixel,
@@ -14,7 +14,7 @@ systemCall sysCalls[] = { 0, 0, 0,
   _readBuffer,
   _clearBuffer,
   _readTime
-}
+};
 
 void syscallDispatcher(int index){
   sysCalls[index]();
