@@ -8,6 +8,7 @@
 #include <videoDriver.h>
 #include <syscallDispatcher.h>
 #include <interrupts.h>
+#include <tests.h>
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -112,9 +113,9 @@ int main()
 	int i,j,k;
 	//syscallDispatcher(3, 5,5,(uint64_t)&color1,0);
 	//_writePixel(5,5,(uint64_t)&color1,0);
-	_syscallHandler(3, 200,200,(uint64_t)&color2,0);
+	//tests(3, 200,200,(uint64_t)&color2,0);
+
 	int true = 1;
-	while(true){
-	}
+	while(true){}
 	return 0;
 }

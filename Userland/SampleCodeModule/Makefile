@@ -1,23 +1,23 @@
 include ../Makefile.inc
 
-MODULE=../0000-sampleCodeModule.bin
-SOURCES=$(wildcard *.c)
-OBJECTS=$(SOURCES:.c=.o)
-SOURCES_ASM=$(wildcard *.asm)
-OBJECTS_ASM=$(SOURCES_ASM:.asm=.o)
-
-all: $(MODULE)
-
-$(MODULE): $(OBJECTS) $(OBJECTS_ASM)
-	$(LD) $(LDFLAGS) -T sampleCodeModule.ld -o $(MODULE) $(OBJECTS) $(OBJECTS_ASM)
+MODULE=0000-sampleCodeModule.bin
+ASMSOURCES= $(wildcard asm/*.asm)
+SOURCES=$(wildcard [^_]*.c)
+ASMOBJECTS=$(ASMSOURCES:.asm=.o)
+COBJECTS=$(SOURCES:.c=.o)
 
 %.o: %.c
-	$(GCC) $(GCCFLAGS) -c $< -o $@
+	$(GCC) $(GCCFLAGS) -I./include -c _loader.c $(SOURCES) 
 
-%.o : %.asm
+%.o: %.asm
 	$(ASM) $(ASMFLAGS) $< -o $@
+
+all: $(USER)
+
+$(USER): $(ASMOBJECTS) $(COBJECTS)
+	$(LD) -T sampleCodeModule.ld _loader.o $(COBJECTS) $(ASMOBJECTS) -o ../$(MODULE)
 
 clean:
 	rm -rf *.o
 
-.PHONY: all clean print
+.PHONY: all clean
