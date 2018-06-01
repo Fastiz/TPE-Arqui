@@ -29,13 +29,12 @@ void clearBuffer(int index){
 int writeCharBuffer(int index, char character) {
 	if(index > 2)
 		return -1;
-	struct Buffer selectedBuffer = std_buffers[index];
+	if(std_buffers[index].size >= BUFFER_SIZE)
+		std_buffers[index].start++;
 	//Si ya llego al limite de tamaño, el final del buffer se mueve al principio del arreglo.
-	if(selectedBuffer.size >= BUFFER_SIZE)
-			selectedBuffer.start++;
-	selectedBuffer.buffer[(selectedBuffer.start + selectedBuffer.size) % BUFFER_SIZE] = character;
-	if(selectedBuffer.size < BUFFER_SIZE)
-			selectedBuffer.size++;
+	std_buffers[index].buffer[(std_buffers[index].start + std_buffers[index].size) % BUFFER_SIZE] = character;
+	if(std_buffers[index].size < BUFFER_SIZE)
+			std_buffers[index].size++;
 	return 0;
 }
 
@@ -49,15 +48,16 @@ int writeStrBuffer(int index, char * str) {
 }
 
 char readCharBuffer(int index){
-  if(index > 2)
+  	if(index > 2)
 		return -1;
-	struct Buffer selectedBuffer = std_buffers[index];
+	if(std_buffers[index].size == 0)
+		return 0;
 	//Si ya llego al limite de tamaño, el final del buffer se mueve al principio del arreglo.
-	if(selectedBuffer.size >= BUFFER_SIZE)
-			selectedBuffer.start++;
-	char character = selectedBuffer.buffer[(selectedBuffer.start + selectedBuffer.size) % BUFFER_SIZE];
-	if(selectedBuffer.size < BUFFER_SIZE)
-			selectedBuffer.size++;
+	char character = std_buffers[index].buffer[std_buffers[index].start];
+	std_buffers[index].buffer[std_buffers[index].start++] = 0;
+	std_buffers[index].size--;
+	if(std_buffers[index].start >= BUFFER_SIZE)
+			std_buffers[index].start = 0;;
 	return character;
 }
 
@@ -70,18 +70,3 @@ int readStrBuffer(int index, char * str) {
 	return 0;
 }
 
-/*char * readStrBuffer(int index) {
-	if(index > 2)
-		return 0;
-	char buffer_copy[BUFFER_SIZE];
-	struct Buffer selectedBuffer = std_buffers[index];
-	int i;
-	char nextChar;
-	for(i = 0 ; i < selectedBuffer.size ; i++){
-		nextChar =  selectedBuffer.buffer[(selectedBuffer.start + i) % BUFFER_SIZE];
-		buffer_copy[i] = nextChar;
-		if(nextChar == 0)
-			break;
-	}
-	return buffer_copy;
-}*/

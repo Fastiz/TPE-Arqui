@@ -5,9 +5,9 @@
 #include <naiveConsole.h>
 #include <idtLoader.h>
 #include <std_buffers.h>
-#include "videoDriver.h"
-#include "syscallDispatcher.h"
-#include "interrupts.h"
+#include <videoDriver.h>
+#include <syscallDispatcher.h>
+#include <interrupts.h>
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -113,6 +113,8 @@ int main()
 	//syscallDispatcher(3, 5,5,(uint64_t)&color1,0);
 	//_writePixel(5,5,(uint64_t)&color1,0);
 	_syscallHandler(3, 200,200,(uint64_t)&color2,0);
-
+	int true = 1;
+	while(true){
+	}
 	return 0;
 }
