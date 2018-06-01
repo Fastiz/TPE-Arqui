@@ -1,10 +1,11 @@
 #include <stdint.h>
 #include "videoDriver.h"
+#include "syscallDispatcher.h"
 
 
 typedef (uint64_t(*systemCall)(uint64_t, uint64_t, uint64_t, uint64_t));
 
-systemCall sysCalls[] = { 0, 0, 0, 
+systemCall sysCalls[] = { 0, 0, 0,
   _writePixel,
   _readPixel,
   _getWidth,
