@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include "videoDriver.h"
+#include "syscallDispatcher.h"
 
 
 typedef (uint64_t(*systemCall)(uint64_t, uint64_t, uint64_t, uint64_t));
