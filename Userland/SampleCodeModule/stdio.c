@@ -1,83 +1,35 @@
-#include "console.h"
-#include "videoDriver.h"
-#include ""
+#include "syscall.h"
+#include "stdio.h"
 
-extern int line, linePosition;
 
 void printf(char* format, ...){
-	int i = 0, parameterIndex;
-	while(format != 0){
-		if(format++ == '%'){
-			if(format == 'd')
-				// https://stackoverflow.com/questions/1735236/how-to-write-my-own-printf-in-c
+	int parameterIndex;
+	for(format; format != '0'; format++){
+		if(format == '%'){
+			format++;
+			switch () {
+				case d:
+					break;
+
+			}
+		}else{
+			putchar(format);
 		}
 	}
 }
 
 void putchar(char c){
-
+	write(_stdout);
 }
 
-void writeBlock(uint64_t width, uint64_t height, struct RGB color, uint64_t size){
-	for(int i = width; i < width+size; i++){
-		for(int j = height; j < height+size; j++){
-			writePixel(i, j, color);
-		}
-	}
+char getchar(){
+	read(_stdin);
 }
 
-void writeChar(char c, uint64_t x, uint64_t y, struct RGB color, uint64_t size){
-	if(c < 32 || c > 255) //falta ver el limite de c, no es 255 en esta fuente
-		return;
-	char * posOfChar = getCharPos(c);
-	for(int j = 0; j < charHeight ; j++) {
-		for(int i = 0, k = 128; i < charWidth; i++, k/=2){
-			if(k & posOfChar[j])
-				writeBlock(i*size + x, j*size + y, color,size);
-		}
-	}
+void write(char c, int dest){
+	syscall(_write, dest, c, 0, 0);
 }
 
-void writeString(char* string, uint64_t x, uint64_t y, struct RGB color, uint64_t size){
-	while(*string != 0){
-		writeChar(*string, x, y, color, size);
-		x += (charWidth + 1) * size;
-		string++;
-	}
-}
-
-void fillScreen(struct RGB color){
-	for(int y = 0; y < getHeight(); y++) {
-		for(int x = 0; x < getWidth(); x++)
-			writePixel(x,y,color);
-	}
-}
-
-void clearScreen() {
-	struct RGB black={0,0,0};
-	fillScreen(black);
-}
-
-void moveScreenUp(uint64_t size, uint64_t ammount, struct RGB background) {
-	for(int y = charHeight * size * ammount; y < screen->height; y++) {
-		for(int x = 0; x < screen->width; x++) {
-			writePixel(x, y - (charHeight * size * ammount), readPixel(x,y));
-			if(y >= screen->height - (charHeight * size * ammount))
-				writePixel(x, y, background);
-		}
-	}
-}
-
-void backupScreen() {
-	for(int y = 0; y < getHeight(); y++) {
-		for(int x = 0; x < getWidth(); x++)
-			backup[x][y] = readPixel(x,y);
-	}
-}
-
-void restoreScreen() {
-	for(int y = 0; y < getHeight(); y++) {
-		for(int x = 0; x < getWidth(); x++)
-			writePixel(x,y,backup[x][y]);
-	}
+char read(int dest){
+	syscall(_read, dest, c, 0, 0);
 }
