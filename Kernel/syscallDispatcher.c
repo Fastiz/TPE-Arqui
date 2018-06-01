@@ -4,7 +4,7 @@
 
 typedef (uint64_t(*systemCall)(uint64_t, uint64_t, uint64_t, uint64_t));
 
-systemCall sysCalls[] = { 0, 0, 0, 
+systemCall sysCalls[] = { 0, 0, 0,
   _writePixel,
   _readPixel,
   _getWidth,
@@ -13,6 +13,10 @@ systemCall sysCalls[] = { 0, 0, 0,
   _readBuffer,
   _clearBuffer,
   _readTime
+}
+
+void syscallDispatcher(int index){
+  sysCalls[index]();
 }
 
 uint64_t _writePixel(uint64_t width, uint64_t height, uint64_t color, uint64_t trash1){
