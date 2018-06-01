@@ -6,6 +6,7 @@
 #include <idtLoader.h>
 #include <std_buffers.h>
 #include "videoDriver.h"
+#include "syscallDispatcher.h"
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -108,7 +109,13 @@ int main()
 	//pintar una linea
 	struct RGB color1={255,0,0}, color2={0,255,0}, color3={0,0,255}, black={0,0,0};
 	int i,j,k;
+<<<<<<< HEAD
 	writePixel(32,10,&color1);
+=======
+	syscallDispatcher(3, 5,5,(uint64_t)&color1,0);
+	//_writePixel(5,5,(uint64_t)&color1,0);
+
+>>>>>>> 704eb6cff98b58371b12f46f860376cc8b2a0eb1
 
 	return 0;
 }
