@@ -26,19 +26,25 @@ void clearBuffer(int index){
 	std_buffers[index].start = 0;
 	std_buffers[index].size = 0;
 }
-int writeBuffer(int index, char * str) {
+int writeCharBuffer(int index, char character) {
 	if(index > 2)
 		return -1;
 	struct Buffer selectedBuffer = std_buffers[index];
-	int i;
-	for(i = 0; str[i] != 0; i++){
-		//Si ya llego al limite de tamaño, el final del buffer se mueve al principio del arreglo.
-		if(selectedBuffer.size >= BUFFER_SIZE)
+	//Si ya llego al limite de tamaño, el final del buffer se mueve al principio del arreglo.
+	if(selectedBuffer.size >= BUFFER_SIZE)
 			selectedBuffer.start++;
-		selectedBuffer.buffer[(selectedBuffer.start + selectedBuffer.size) % BUFFER_SIZE] = str[i];
-		if(selectedBuffer.size < BUFFER_SIZE)
+	selectedBuffer.buffer[(selectedBuffer.start + selectedBuffer.size) % BUFFER_SIZE] = character;
+	if(selectedBuffer.size < BUFFER_SIZE)
 			selectedBuffer.size++;
-	}
+	return 0;
+}
+int writeStrBuffer(int index, char * str) {
+	if(index > 2)
+		return -1;
+	int i;
+	for(i = 0; str[i] != 0; i++)
+		writeCharBuffer(index,str[i]);
+	return 0;
 }
 char * readBuffer(int index) {
 	if(index > 2)
