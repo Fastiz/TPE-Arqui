@@ -1,6 +1,5 @@
-/*#include "syscall.h"
+#include "syscall.h"
 #include "stdio.h"
-
 
 void printf(char* format, ...){
 	int parameterIndex;
@@ -33,4 +32,3 @@ void write(char c, int dest){
 char read(int dest){
 	syscall(_read, dest, c, 0, 0);
 }
-*/
