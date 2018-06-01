@@ -6,6 +6,7 @@ GLOBAL picSlaveMask
 GLOBAL haltcpu
 GLOBAL _hlt
 
+GLOBAL _exception0Handler
 GLOBAL _irq00Handler
 GLOBAL _irq01Handler
 GLOBAL _irq02Handler
@@ -15,6 +16,7 @@ GLOBAL _irq05Handler
 
 GLOBAL _syscallHandler
 
+EXTERN exceptionDispatcher
 EXTERN irqDispatcher
 EXTERN syscallDispatcher
 
@@ -70,6 +72,19 @@ SECTION .text
 	iretq
 %endmacro
 
+%macro exceptionHandler 1
+	pushState
+
+	mov rdi, %1 ; pasaje de parametro
+	;lea rsi, [_nextInstruction]; dirección a donde apunta el instruction pointer.
+	_nextInstruction:
+	;mov rdx, rsp; pointer al stack donde estan pusheados los registros
+	call exceptionDispatcher
+
+	popState
+	iret
+
+%endmacro
 
 _hlt:
 	sti
@@ -101,6 +116,10 @@ picSlaveMask:
     pop     rbp
     retn
 
+
+;División por cero
+_exception0Handler:
+	exceptionHandler 0
 
 ;8254 Timer (Timer Tick)
 _irq00Handler:
