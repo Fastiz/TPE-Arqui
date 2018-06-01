@@ -17,7 +17,7 @@ void main(){
 void newLine(){
 
 }
-*/
+
 
 void consoleLoop(){
   readStdin();
@@ -27,4 +27,4 @@ void consoleLoop(){
 
 readStdin(){
   //while()
-}
+}*/
