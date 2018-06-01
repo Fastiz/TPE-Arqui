@@ -50,7 +50,7 @@ struct vesa_mode {
 		return screen->height;
 	}
 
-	struct RGB readPixel(int width, int height) {
+	struct RGB readPixel(uint64_t width, uint64_t height) {
 		struct RGB color = {0,0,0};
 		if(!(width > screen->width || height > screen->height || width < 0 || height < 0)) {
 			int pixelIndex = width + height*(screen->width);
@@ -62,7 +62,7 @@ struct vesa_mode {
 	    return color;
 	}
 
-	void writePixel(int width, int height, struct RGB color){
+	void writePixel(uint64_t width, uint64_t height, struct RGB color){
 		if(width > screen->width || height > screen->height || width < 0 || height < 0)
 			return;
 
@@ -73,7 +73,7 @@ struct vesa_mode {
 		*(pixelPos) = color.blue;
 	}
 
-	void writeBlock(int width, int height, struct RGB color, int size){
+	void writeBlock(uint64_t width, uint64_t height, struct RGB color, uint64_t size){
 		for(int i = width; i < width+size; i++){
 			for(int j = height; j < height+size; j++){
 				writePixel(i, j, color);
@@ -81,8 +81,8 @@ struct vesa_mode {
 		}
 	}
 
-	void writeChar(char c, int x, int y, struct RGB color, int size){
-	 	if(c < 32 || c > 255)
+	void writeChar(char c, uint64_t x, uint64_t y, struct RGB color, uint64_t size){
+	 	if(c < 32 || c > 255) //falta ver el limite de c, no es 255 en esta fuente
 	 		return;
 	 	char * posOfChar = getCharPos(c);
 		for(int j = 0; j < charHeight ; j++) {
@@ -93,7 +93,7 @@ struct vesa_mode {
 		}
 	}
 
-	void writeString(char* string, int x, int y, struct RGB color, int size){
+	void writeString(char* string, uint64_t x, uint64_t y, struct RGB color, uint64_t size){
 	 	while(*string != 0){
 	 		writeChar(*string, x, y, color, size);
 	 		x += (charWidth + 1) * size;
@@ -111,6 +111,16 @@ struct vesa_mode {
 	void clearScreen() {
 	 	struct RGB black={0,0,0};
 	 	fillScreen(black);
+	}
+
+	void moveScreenUp(uint64_t size, uint64_t ammount, struct RGB background) {
+		for(int y = charHeight * size * ammount; y < screen->height; y++) {
+			for(int x = 0; x < screen->width; x++) {
+				writePixel(x, y - (charHeight * size * ammount), readPixel(x,y));
+				if(y >= screen->height - (charHeight * size * ammount))
+					writePixel(x, y, background);
+			}
+		}
 	}
 
 	void backupScreen() {
