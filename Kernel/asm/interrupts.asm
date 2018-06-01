@@ -14,6 +14,7 @@ GLOBAL _irq04Handler
 GLOBAL _irq05Handler
 
 EXTERN irqDispatcher
+EXTERN syscallDispatcher
 
 SECTION .text
 
@@ -58,7 +59,7 @@ SECTION .text
 
 	mov rdi, %1 ; pasaje de parametro
 	call irqDispatcher
-	
+
 	; signal pic EOI (End of Interrupt)
 	mov al, 20h
 	out 20h, al
@@ -122,6 +123,9 @@ _irq04Handler:
 ;USB
 _irq05Handler:
 	irqHandlerMaster 5
+
+_syscallHandler:
+	call syscallDispatcher
 
 
 haltcpu:
