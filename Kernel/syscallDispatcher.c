@@ -16,6 +16,10 @@ systemCall sysCalls[] = { 0, 0, 0,
   _readTime
 };
 
+void syscallDispatcher(int index){
+  sysCalls[index]();
+}
+
 uint64_t _writePixel(uint64_t width, uint64_t height, uint64_t color, uint64_t trash1){
   writePixel(width, height, &color);
   return 0;

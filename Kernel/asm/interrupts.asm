@@ -128,6 +128,7 @@ _irq05Handler:
 
 _syscallHandler:
 	call syscallDispatcher
+	ret
 
 
 haltcpu:
