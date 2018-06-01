@@ -84,4 +84,4 @@ int readStrBuffer(int index, char * str) {
 			break;
 	}
 	return buffer_copy;
-}/*
+}*/
