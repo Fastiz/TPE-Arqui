@@ -7,9 +7,9 @@ static int var2 = 0;
 
 
 int main() {
-	struct RGB color2 = {255,255, 0};
-
-	_syscall(3, 200,200,(uint64_t)&color2,0);
+	struct RGB color2;
+	_syscall(4,0,0,&color2);
+	_syscall(3, 200,200,color2,0);
 
 
 	//Test if BSS is properly set up

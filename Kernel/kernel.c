@@ -89,6 +89,10 @@ void * initializeKernelBinary()
 int main()
 {
 	load_idt();
+
+	struct RGB color1={255,0,0}, color2={0,255,0}, color3={0,0,255}, black={0,0,0};
+	writePixel(0,0,color1);
+	
 	ncPrint("[Kernel Main]");
 	ncNewline();
 	ncPrint("  Sample code module at 0x");
@@ -110,12 +114,11 @@ int main()
 
 	setUpBuffers();
 	//pintar una linea
-	struct RGB color1={255,0,0}, color2={0,255,0}, color3={0,0,255}, black={0,0,0};
+	
 	int i,j,k;
-	//syscallDispatcher(3, 5,5,(uint64_t)&color1,0);
-	//_writePixel(5,5,(uint64_t)&color1,0);
-	//tests(3, 200,200,(uint64_t)&color2,0);
 
+	printString("YA FUNCIONO",color1);
+	double x = 0;
 	int true = 1;
 	while(true){}
 	return 0;

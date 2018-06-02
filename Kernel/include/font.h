@@ -1,8 +1,5 @@
 // (c) 2009, 2010 Lutz Sammer, License: AGPLv3
 
-char * getCharPos(char c);
-
-
 #define charWidth 8
 #define charHeight 16
 
@@ -264,3 +261,5 @@ char * getCharPos(char c);
 #define XXXXXXX_ 0xFE
 #define XXXXXXXX 0xFF
 	/// @}
+
+char * getCharPos(char c);
