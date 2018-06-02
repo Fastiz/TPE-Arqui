@@ -7,12 +7,12 @@
 #define ROW_HEIGHT 16
 #define LETTER_WIDTH 9
 #define HORIZONTAL_MARGIN 2
-#define VERTICAL_MARGIN 2
+#define VERTICAL_MARGIN 0
 #define MAX_LINE_POSITION (windowWidth-HORIZONTAL_MARGIN*2*letterSize)/(letterSize*LETTER_SPACE)
 
 #define LETTER_SPACE 10
 
-char buffer[1000];
+char buffer[200];
 int bufferIndex =0;
 
 static const char* consoleName = "Consola\\::";
@@ -23,8 +23,8 @@ static const struct RGB STDOUTColor = {255, 255, 255};
 static const struct RGB STDINColor = {255, 255, 255};
 static const struct RGB STDERRColor = {255, 50, 50};
 
- int windowWidth;
- int windowHeight;
+int windowWidth;
+int windowHeight;
 int letterSize = 1;
 int line=VERTICAL_MARGIN, linePosition=HORIZONTAL_MARGIN;
 
@@ -36,6 +36,23 @@ void console(){
 //void newLine(){}
 
 void init(){
+  //prueba
+  // fillScreen(consoleBackground);
+  // fillScreen(consoleColor);
+  // fillScreen(STDOUTColor);
+  // fillScreen(STDINColor);
+  // fillScreen(consoleBackground);
+  // fillScreen(consoleColor);
+  // fillScreen(STDOUTColor);
+  // fillScreen(STDINColor);
+  // fillScreen(consoleBackground);
+  // fillScreen(consoleColor);
+  // fillScreen(STDOUTColor);
+  // fillScreen(STDINColor);
+  // fillScreen(consoleBackground);
+  // fillScreen(consoleColor);
+  // fillScreen(STDOUTColor);
+  // fillScreen(STDINColor);
 
   windowWidth = _syscall(_getScreenWidth);
   windowHeight = _syscall(_getScreenHeight);
@@ -44,8 +61,10 @@ void init(){
   for(;*texto != 0;texto++){
     _syscall(_write, 2, *texto);
   }
-
-  printf("%s: %d", "Esto es un numero", 528383);
+texto = "ESTO ES UN MENSAJE!!!!!!!!!!!! COSAS COSAS COSAS @@@@@@@@@@@@@@@";
+  for(;*texto != 0;texto++){
+    putchar(*texto);
+  }
 }
 
 void consoleLoop(){
@@ -57,21 +76,16 @@ void consoleLoop(){
 }
 
 int callCommand(){
-  char c;
+  //Llamar comando
 
-  while((c=_syscall(_read, 0))!='\n'){
-    if(c != 0){
-      putchar(c);
-    }
-  }
+  //Limpiar buffer de entrada
 }
-
 
 void checkSpace(){
   if(linePosition >= MAX_LINE_POSITION)
     newLine();
   else if(line*letterSize*ROW_HEIGHT >= windowHeight-VERTICAL_MARGIN*ROW_HEIGHT*letterSize){
-    _syscall(11, letterSize*ROW_HEIGHT);
+    _syscall(_movePixelsUp, letterSize*ROW_HEIGHT, consoleBackground);
     line--;
   }
 }
@@ -108,8 +122,7 @@ void stdin(){
 }
 
 void stdout(){
-  putchar('a');
-  int flag=0;
+  int flag;
   char c;
   while(c=_syscall(_read, 1)){
     flag=1;
@@ -122,7 +135,7 @@ void stdout(){
 }
 
 void stderr(){
-  int flag=0;
+  int flag;
   char c;
   while(c=_syscall(_read, 2)){
     flag=1;
@@ -135,8 +148,8 @@ void stderr(){
 }
 
 void newLine(){
-
   line++;
   linePosition = HORIZONTAL_MARGIN;
   checkSpace();
 }
+
