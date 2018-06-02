@@ -2,7 +2,7 @@
 #include "syscall.h"
 #include "console.h"
 #include "stdio.h"
-
+#include "commandDispatcher.h"
 
 #define ROW_HEIGHT 16
 #define LETTER_WIDTH 9
@@ -74,17 +74,6 @@ void consoleLoop(){
     stderr();
   }
 }
-
-int callCommand(){
-  // char c;
-  //
-  // while((c=_syscall(_read, 0))!='\n'){
-  //   if(c != 0){
-  //     putchar(c);
-  //   }
-  // }
-}
-
 void checkSpace(){
   if(linePosition >= MAX_LINE_POSITION)
     newLine();
@@ -122,7 +111,7 @@ void stdin(){
     }
   }
   newLine();
-  callCommand();
+  commandDispatcher(buffer);
 }
 
 void stdout(){
