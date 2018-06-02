@@ -36,35 +36,10 @@ void console(){
 //void newLine(){}
 
 void init(){
-  //prueba
-  // fillScreen(consoleBackground);
-  // fillScreen(consoleColor);
-  // fillScreen(STDOUTColor);
-  // fillScreen(STDINColor);
-  // fillScreen(consoleBackground);
-  // fillScreen(consoleColor);
-  // fillScreen(STDOUTColor);
-  // fillScreen(STDINColor);
-  // fillScreen(consoleBackground);
-  // fillScreen(consoleColor);
-  // fillScreen(STDOUTColor);
-  // fillScreen(STDINColor);
-  // fillScreen(consoleBackground);
-  // fillScreen(consoleColor);
-  // fillScreen(STDOUTColor);
-  // fillScreen(STDINColor);
 
   windowWidth = _syscall(_getScreenWidth);
   windowHeight = _syscall(_getScreenHeight);
   fillScreen(consoleBackground);
-  char * texto = "ESTO ES UN ERROR";
-  for(;*texto != 0;texto++){
-    _syscall(_write, 2, *texto);
-  }
-texto = "ESTO ES UN MENSAJE!!!!!!!!!!!! COSAS COSAS COSAS @@@@@@@@@@@@@@@";
-  for(;*texto != 0;texto++){
-    putchar(*texto);
-  }
 }
 
 void consoleLoop(){
@@ -138,9 +113,13 @@ void stderr(){
   char c;
   while(c=_syscall(_read, 2)){
     flag=1;
-    checkSpace();
-    writeChar(c, linePosition*letterSize*LETTER_SPACE, line*letterSize*ROW_HEIGHT, STDERRColor, letterSize);
-    linePosition++;
+    if(c == '\n'){
+      newLine();
+    }else{
+      checkSpace();
+      writeChar(c, linePosition*letterSize*LETTER_SPACE, line*letterSize*ROW_HEIGHT, STDERRColor, letterSize);
+      linePosition++;
+    }
   }
   if(flag)
     newLine();
