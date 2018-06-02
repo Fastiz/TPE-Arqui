@@ -17,6 +17,7 @@ void setUpBuffers() {
 	std_buffers[2] = std_err;
 
 }
+
 void clearBuffer(int index){
 	if(index > 2)
 		return;
@@ -26,6 +27,7 @@ void clearBuffer(int index){
 	std_buffers[index].start = 0;
 	std_buffers[index].size = 0;
 }
+
 int writeCharBuffer(int index, char character) {
 	if(index > 2)
 		return -1;
@@ -37,6 +39,7 @@ int writeCharBuffer(int index, char character) {
 			std_buffers[index].size++;
 	return 0;
 }
+
 int writeIntBuffer(int index, int value,int base) {
 	if(index > 2)
 		return -1;
@@ -45,7 +48,7 @@ int writeIntBuffer(int index, int value,int base) {
 	int i = 0;
 	int digits = 0;
 	do
-	{		
+	{
 		remainder = value % base;
 		number[i++] = (remainder < 10) ? remainder + '0' : remainder + 'A' - 10;
 		digits++;
@@ -54,6 +57,7 @@ int writeIntBuffer(int index, int value,int base) {
 	for(i = digits - 1; i >= 0; i--)
 		writeCharBuffer(index,number[i]);
 }
+
 int writeStrBuffer(int index, char * str) {
 	if(index > 2)
 		return -1;
@@ -88,4 +92,3 @@ int readStrBuffer(int index, char * str,int size) {
 	}
 	return 0;
 }
-

@@ -9,14 +9,14 @@
 typedef (*systemCall)();
 
 systemCall sysCalls[] = { 0, 0, 0,
-  _writePixel,
-  _readPixel,
-  _getScreenWidth,
-  _getScreenHeight,
-  /*_writeBuffer,
-  _readBuffer,
-  _clearBuffer,*/
-  _readTime
+  (systemCall)_writePixel,
+  (systemCall)_readPixel,
+  (systemCall)_getScreenWidth,
+  (systemCall)_getScreenHeight,
+  (systemCall)_write,
+  (systemCall)_read,
+  (systemCall)_clearBuffer,
+  (systemCall)_readTime
 };
 
 void syscallDispatcher(uint64_t index, uint64_t a, uint64_t b, uint64_t c){
@@ -38,19 +38,19 @@ uint64_t _getScreenWidth(){
 uint64_t _getScreenHeight(){
   return getHeight();
 }
-/*
-uint64_t _writeBuffer(uint64_t index, uint64_t str, uint64_t trash1, uint64_t trash2){
-  return writeBuffer(index, (char *) str);
+
+void _write(uint64_t buffer, char c){
+  writeCharBuffer(buffer, c);
 }
 
-uint64_t _readBuffer(uint64_t index, uint64_t trash1, uint64_t trash2, uint64_t trash3){
-  return (uint64_t)readBuffer(index);
+uint64_t _read(uint64_t buffer){
+  return (uint64_t)readCharBuffer(buffer);
 }
 
-uint64_t _clearBuffer(uint64_t index, uint64_t trash1, uint64_t trash2, uint64_t trash3){
+uint64_t _clearBuffer(uint64_t index){
   clearBuffer(index);
   return 0;
-}*/
+}
 
 uint64_t _readTime(uint64_t time) {
   if(time == 0)
