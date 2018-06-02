@@ -57,13 +57,13 @@ void consoleLoop(){
 }
 
 int callCommand(){
-  char c;
-
-  while((c=_syscall(_read, 0))!='\n'){
-    if(c != 0){
-      putchar(c);
-    }
-  }
+  // char c;
+  //
+  // while((c=_syscall(_read, 0))!='\n'){
+  //   if(c != 0){
+  //     putchar(c);
+  //   }
+  // }
 }
 
 
@@ -108,7 +108,6 @@ void stdin(){
 }
 
 void stdout(){
-  putchar('a');
   int flag=0;
   char c;
   while(c=_syscall(_read, 1)){
