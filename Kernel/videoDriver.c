@@ -75,16 +75,40 @@ struct vesa_mode {
 		*(pixelPos) = color.blue;
 	}
 
-	void movePixelsUp(uint64_t ammount) {
+	void movePixelsUp(uint64_t ammount, struct RGB background) {
+
+		char * pixelPosWrite = (char*)(screen->framebuffer);
+		char * pixelPosRead = (char*)(screen->framebuffer + (ammount* screen->width)*(screen->bpp/8));
+		char * maxPos = (char *)(screen->framebuffer + screen->height*screen->width *(screen->bpp/8));
+	
+		while(pixelPosWrite < maxPos){
+			if(pixelPosRead < maxPos) {
+				*(pixelPosWrite+2) = *(pixelPosRead+2);
+				*(pixelPosWrite+1) = *(pixelPosRead+1);
+				*(pixelPosWrite) = *(pixelPosRead);
+			}
+			else {
+				*(pixelPosWrite+2) = background.red;
+				*(pixelPosWrite+1) = background.green;
+				*(pixelPosWrite) = background.blue;
+			}
+
+			pixelPosWrite += screen->bpp/8;
+			pixelPosRead += screen->bpp/8;
+		}
+		
+	}
+
+	void replaceColor(struct RGB colorOld, struct RGB colorNew) {
 		int i = 0;
 		while(i <= (screen->width * screen->height) ){
-			int pixelIndexWrite = i;
-			char * pixelPosWrite = (char*)(screen->framebuffer + pixelIndexWrite*(screen->bpp/8));
-			int pixelIndexRead = i + (ammount* screen->width);
-			char * pixelPosRead = (char*)(screen->framebuffer + pixelIndexRead*(screen->bpp/8));
-			*(pixelPosWrite+2) = *(pixelPosRead+2);
-			*(pixelPosWrite+1) = *(pixelPosRead+1);
-			*(pixelPosWrite) = *(pixelPosRead);
+			int pixelIndex = i;
+			char * pixelPos = (char*)(screen->framebuffer + pixelIndex*(screen->bpp/8));
+			if(*(pixelPos+2) == colorOld.red && *(pixelPos+1) == colorOld.green && *(pixelPos) == colorOld.blue) {
+				*(pixelPos+2) = colorNew.red;
+				*(pixelPos+1) = colorNew.green;
+				*(pixelPos) = colorNew.blue;
+			}
 			i++;
 		}
 	}

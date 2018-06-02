@@ -17,7 +17,8 @@ systemCall sysCalls[] = { 0, 0, 0,
   (systemCall)_read,
   (systemCall)_clearBuffer,
   (systemCall)_readTime,
-  (systemCall)_scrollScreen
+  (systemCall)_scrollScreen,
+  (systemCall)_replaceColor
 };
 
 void syscallDispatcher(uint64_t index, uint64_t a, uint64_t b, uint64_t c){
@@ -63,6 +64,10 @@ uint64_t _readTime(uint64_t time) {
   return -1; //si me pasaron un parametro invalido
 }
 
-void _scrollScreen(uint64_t ammount) {
-  movePixelsUp(ammount);
+void _scrollScreen(uint64_t ammount, struct RGB background) {
+  movePixelsUp(ammount, background);
+}
+
+void _replaceColor(struct RGB colorOld, struct RGB colorNew){
+  replaceColor(colorOld,colorNew);
 }
