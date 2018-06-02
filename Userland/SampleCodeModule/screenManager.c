@@ -10,9 +10,9 @@
 
 struct RGB background = {0,0,0};
 
-void writeBlock(uint64_t width, uint64_t height, struct RGB color, uint64_t size){
-	for(int i = width; i < width+size; i++){
-		for(int j = height; j < height+size; j++){
+void writeBlock(uint64_t width, uint64_t height, struct RGB color, uint64_t sizeX,uint64_t sizeY){
+	for(int i = width; i < width+sizeX; i++){
+		for(int j = height; j < height+sizeY; j++){
 			//writePixel(i, j, color);
 			_syscall(3, i, j, color);
 		}
@@ -26,7 +26,7 @@ void writeChar(char c, uint64_t x, uint64_t y, struct RGB color, uint64_t size){
 	for(int j = 0; j < charHeight ; j++) {
 		for(int i = 0, k = 128; i < charWidth; i++, k/=2){
 			if(k & posOfChar[j])
-				writeBlock(i*size + x, j*size + y, color,size);
+				writeBlock(i*size + x, j*size + y, color,size,size);
 		}
 	}
     /*currentX+= size * charWidth;

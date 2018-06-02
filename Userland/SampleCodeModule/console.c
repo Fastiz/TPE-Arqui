@@ -25,7 +25,7 @@ static const struct RGB STDERRColor = {255, 50, 50};
 
  int windowWidth;
  int windowHeight;
-int letterSize = 2;
+int letterSize = 1;
 int line=VERTICAL_MARGIN, linePosition=HORIZONTAL_MARGIN;
 
 void console(){
