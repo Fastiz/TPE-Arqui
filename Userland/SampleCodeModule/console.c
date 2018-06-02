@@ -12,7 +12,7 @@
 
 #define LETTER_SPACE 10
 
-char buffer[200];
+char buffer[1000];
 int bufferIndex =0;
 
 static const char* consoleName = "Consola\\::";
@@ -36,23 +36,6 @@ void console(){
 //void newLine(){}
 
 void init(){
-  //prueba
-  // fillScreen(consoleBackground);
-  // fillScreen(consoleColor);
-  // fillScreen(STDOUTColor);
-  // fillScreen(STDINColor);
-  // fillScreen(consoleBackground);
-  // fillScreen(consoleColor);
-  // fillScreen(STDOUTColor);
-  // fillScreen(STDINColor);
-  // fillScreen(consoleBackground);
-  // fillScreen(consoleColor);
-  // fillScreen(STDOUTColor);
-  // fillScreen(STDINColor);
-  // fillScreen(consoleBackground);
-  // fillScreen(consoleColor);
-  // fillScreen(STDOUTColor);
-  // fillScreen(STDINColor);
 
   windowWidth = _syscall(_getScreenWidth);
   windowHeight = _syscall(_getScreenHeight);
@@ -74,10 +57,15 @@ void consoleLoop(){
 }
 
 int callCommand(){
-  //Llamar comando
+  char c;
 
-  //Limpiar buffer de entrada
+  while((c=_syscall(_read, 0))!='\n'){
+    if(c != 0){
+      putchar(c);
+    }
+  }
 }
+
 
 void checkSpace(){
   if(linePosition >= MAX_LINE_POSITION)
@@ -120,7 +108,8 @@ void stdin(){
 }
 
 void stdout(){
-  int flag;
+  putchar('a');
+  int flag=0;
   char c;
   while(c=_syscall(_read, 1)){
     flag=1;
@@ -133,7 +122,7 @@ void stdout(){
 }
 
 void stderr(){
-  int flag;
+  int flag=0;
   char c;
   while(c=_syscall(_read, 2)){
     flag=1;
