@@ -72,13 +72,13 @@ void fillScreen(struct RGB color){
 	currentY = 0;
 }*/
 
-void moveScreenUp(int offset) {
+void moveScreenUp(int offset, struct RGB background) {
     int height = _syscall(_getScreenHeight);
     int width = _syscall(_getScreenWidth);
 	for(int y = offset; y < height; y++) {
 		for(int x = 0; x < width; x++) {
-			struct RGB *color = (struct RGB *)_syscall(_readPixel,x,y);
-			_syscall(_writePixel, x, y - offset, *color);
+			//struct RGB *color = (struct RGB *)_syscall(_readPixel,x,y);
+			_syscall(_writePixel, x, y - offset, background);
 			if(y >= height - offset)
 				_syscall(_writePixel, x, y, background);
 		}

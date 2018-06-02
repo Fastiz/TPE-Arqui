@@ -35,6 +35,24 @@ void console(){
 //void newLine(){}
 
 void init(){
+  //prueba
+  // fillScreen(consoleBackground);
+  // fillScreen(consoleColor);
+  // fillScreen(STDOUTColor);
+  // fillScreen(STDINColor);
+  // fillScreen(consoleBackground);
+  // fillScreen(consoleColor);
+  // fillScreen(STDOUTColor);
+  // fillScreen(STDINColor);
+  // fillScreen(consoleBackground);
+  // fillScreen(consoleColor);
+  // fillScreen(STDOUTColor);
+  // fillScreen(STDINColor);
+  // fillScreen(consoleBackground);
+  // fillScreen(consoleColor);
+  // fillScreen(STDOUTColor);
+  // fillScreen(STDINColor);
+
   windowWidth = _syscall(_getScreenWidth);
   windowHeight = _syscall(_getScreenHeight);
   fillScreen(consoleBackground);
@@ -67,13 +85,12 @@ void checkSpace(){
   if(linePosition*letterSize*LETTER_SPACE >= windowWidth-HORIZONTAL_MARGIN*2*letterSize)
     newLine();
   else if(line*letterSize*ROW_HEIGHT >= windowHeight-VERTICAL_MARGIN*ROW_HEIGHT*letterSize){
-    moveScreenUp(letterSize*ROW_HEIGHT);
+    moveScreenUp(letterSize*ROW_HEIGHT, consoleBackground);
     line--;
   }
 }
 
 void stdin(){
-  checkSpace();
   bufferIndex=0;
   char * text = consoleName;
   while(*text){
@@ -88,13 +105,13 @@ void stdin(){
         writeChar(buffer[--bufferIndex], (--linePosition)*letterSize*LETTER_SPACE, line*letterSize*ROW_HEIGHT, consoleBackground, letterSize);
       }
     }else if(c){
-      checkSpace();
       buffer[bufferIndex++] = c;
       writeChar(c, linePosition*letterSize*LETTER_SPACE, line*letterSize*ROW_HEIGHT, STDINColor, letterSize);
       linePosition++;
 
     }
   }
+  moveScreenUp(letterSize*ROW_HEIGHT, consoleBackground);
   newLine();
   callCommand();
 }
@@ -104,7 +121,6 @@ void stdout(){
   char c;
   while(c=_syscall(_read, 1)){
     flag=1;
-    checkSpace();
     writeChar(c, linePosition*letterSize*LETTER_SPACE, line*letterSize*ROW_HEIGHT, STDOUTColor, letterSize);
     linePosition++;
   }
@@ -116,7 +132,6 @@ void stderr(){
   int flag;
   char c;
   while(c=_syscall(_read, 2)){
-    checkSpace();
     flag=1;
     writeChar(c, linePosition*letterSize*LETTER_SPACE, line*letterSize*ROW_HEIGHT, STDERRColor, letterSize);
     linePosition++;
@@ -126,6 +141,7 @@ void stderr(){
 }
 
 void newLine(){
+  checkSpace();
   line++;
   linePosition = HORIZONTAL_MARGIN;
 }
