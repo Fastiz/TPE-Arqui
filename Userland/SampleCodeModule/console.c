@@ -72,7 +72,6 @@ void consoleLoop(){
     stdout();
     stderr();
   }
-
 }
 
 int callCommand(){
@@ -105,6 +104,7 @@ void stdin(){
         writeChar(buffer[--bufferIndex], (--linePosition)*letterSize*LETTER_SPACE, line*letterSize*ROW_HEIGHT, consoleBackground, letterSize);
       }
     }else if(c){
+      checkSpace();
       buffer[bufferIndex++] = c;
       writeChar(c, linePosition*letterSize*LETTER_SPACE, line*letterSize*ROW_HEIGHT, STDINColor, letterSize);
       linePosition++;
@@ -120,6 +120,7 @@ void stdout(){
   char c;
   while(c=_syscall(_read, 1)){
     flag=1;
+    checkSpace();
     writeChar(c, linePosition*letterSize*LETTER_SPACE, line*letterSize*ROW_HEIGHT, STDOUTColor, letterSize);
     linePosition++;
   }
@@ -132,6 +133,7 @@ void stderr(){
   char c;
   while(c=_syscall(_read, 2)){
     flag=1;
+    checkSpace();
     writeChar(c, linePosition*letterSize*LETTER_SPACE, line*letterSize*ROW_HEIGHT, STDERRColor, letterSize);
     linePosition++;
   }
@@ -140,7 +142,8 @@ void stderr(){
 }
 
 void newLine(){
-  checkSpace();
+
   line++;
   linePosition = HORIZONTAL_MARGIN;
+  checkSpace();
 }
