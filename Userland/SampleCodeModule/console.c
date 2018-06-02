@@ -8,11 +8,21 @@
 #define HORIZONTAL_MARGIN 2
 #define VERTICAL_MARGIN 2
 
+#define LETTER_SPACE 10
+
 static const char buffer[200];
+
+static const char* consoleName = "Consola\\::";
+
+static const struct RGB consoleColor = {0,0,255};
+static const struct RGB STDOUTColor = {255, 255, 255};
+static const struct RGB STDINColor = {255, 255, 255};
+static const struct RGB STDERRColor = {255, 0, 0};
 
 //static const int windowWidth = getVideoDriverWidth();
 //static const int windowHeight = getVideoDriverHeight();
-int line=0, linePosition=0;
+int letterSize = 1;
+int line=VERTICAL_MARGIN, linePosition=HORIZONTAL_MARGIN;
 
 void console(){
   consoleLoop();
@@ -22,16 +32,30 @@ void console(){
 
 
 void consoleLoop(){
-  struct RGB color = {0,0,255};
   while(1){
-    char c = readStdin();
+  readStdin();
+}
+
+}
+
+void readStdin(){
+  newLine();
+  char * text = consoleName;
+  while(*text){
+    writeChar(*text, linePosition*letterSize*LETTER_SPACE, line*letterSize*ROW_HEIGHT, consoleColor, letterSize);
+    linePosition++;
+    text++;
+  }
+  char c;
+  while((c = _syscall(_read, 1)) != '\n'){
     if(c){
-      writeChar(c, 50, 50, color, 2);
+      writeChar(c, linePosition*letterSize*LETTER_SPACE, line*letterSize*ROW_HEIGHT, STDINColor, letterSize);
+      linePosition++;
     }
   }
 }
 
-char readStdin(){
-  return _syscall(_read, 0);
-  //return 'c';
+void newLine(){
+  line++;
+  linePosition = HORIZONTAL_MARGIN;
 }

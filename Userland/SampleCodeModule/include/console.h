@@ -1,2 +1,2 @@
 void console();
-char readStdin();
+void readStdin();
