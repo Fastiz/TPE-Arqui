@@ -100,15 +100,14 @@ struct vesa_mode {
 	}
 
 	void replaceColor(struct RGB colorOld, struct RGB colorNew) {
-		int i = 0;
-		while(i <= (screen->width * screen->height) ){
-			int pixelIndex = i;
-			char * pixelPos = (char*)(screen->framebuffer + pixelIndex*(screen->bpp/8));
+		char * pixelPos = (char*)(screen->framebuffer);
+		char * maxPos = (char *)(screen->framebuffer + screen->height*screen->width *(screen->bpp/8));
+		while(pixelPos <= maxPos ){
 			if(*(pixelPos+2) == colorOld.red && *(pixelPos+1) == colorOld.green && *(pixelPos) == colorOld.blue) {
 				*(pixelPos+2) = colorNew.red;
 				*(pixelPos+1) = colorNew.green;
 				*(pixelPos) = colorNew.blue;
 			}
-			i++;
+			pixelPos += screen->bpp/8;
 		}
 	}
