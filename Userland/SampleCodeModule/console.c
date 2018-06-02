@@ -76,7 +76,6 @@ void consoleLoop(){
 }
 
 int callCommand(){
-<<<<<<< HEAD
   // char c;
   //
   // while((c=_syscall(_read, 0))!='\n'){
@@ -84,11 +83,6 @@ int callCommand(){
   //     putchar(c);
   //   }
   // }
-=======
-  //Llamar comando
-
-  //Limpiar buffer de entrada
->>>>>>> 77695a1f880c2b841907775c1da30cdfc69f528d
 }
 
 void checkSpace(){
@@ -132,11 +126,7 @@ void stdin(){
 }
 
 void stdout(){
-<<<<<<< HEAD
   int flag=0;
-=======
-  int flag;
->>>>>>> 77695a1f880c2b841907775c1da30cdfc69f528d
   char c;
   while(c=_syscall(_read, 1)){
     flag=1;
@@ -166,4 +156,3 @@ void newLine(){
   linePosition = HORIZONTAL_MARGIN;
   checkSpace();
 }
-

@@ -47,6 +47,8 @@ void printf(char* format, ...){
      }
 }
 
+
+
 void putchar(char c){
   _syscall(_write, 1, c);
 }
