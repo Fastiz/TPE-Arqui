@@ -28,6 +28,8 @@ void commandDispatcher(char * commandLine) {
 		echo(parameter);
 	else if(compareString(command,"time") == 1)
 		time();
+	else if(compareString(command,"frog") == 1)
+		printf("     @..@        \n    (\\--/)      \n   (.>__<.)               \n   ^^^  ^^^");
 	else{
 		error();
 	}
@@ -45,16 +47,16 @@ static void time(){
 	intToChar(_syscall(_readTime,0),16,seconds);
 	intToChar(_syscall(_readTime,1),16,minutes);
 	intToChar(_syscall(_readTime,2),16,hour);
-	
+
 	int i;
 	for(i = 0; hour[i] != 0; i++)
 		_syscall(_write,1,hour[i]);
 	_syscall(_write,1,':');
-	
+
 	for(i = 0; minutes[i] != 0; i++)
 		_syscall(_write,1,minutes[i]);
 	_syscall(_write,1,':');
-	
+
 	for(i = 0; seconds[i] != 0; i++)
 		_syscall(_write,1,seconds[i]);
 }

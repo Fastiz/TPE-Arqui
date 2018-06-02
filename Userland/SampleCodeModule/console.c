@@ -74,14 +74,8 @@ void consoleLoop(){
     stderr();
   }
 }
-<<<<<<< HEAD
 
-int callCommand(){
-  printf("     @..@        \n    (\\--/)      \n   (.>__<.)               \n   ^^^  ^^^");
-}
 
-=======
->>>>>>> d0dd31218eb1ba25fdb3bf6ccc9f0d2a0825383a
 void checkSpace(){
   if(linePosition >= MAX_LINE_POSITION)
     newLine();
