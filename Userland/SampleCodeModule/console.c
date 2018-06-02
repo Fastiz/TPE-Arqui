@@ -25,7 +25,7 @@ static const struct RGB STDERRColor = {255, 50, 50};
 
  int windowWidth;
  int windowHeight;
-int letterSize = 2;
+int letterSize = 1;
 int line=VERTICAL_MARGIN, linePosition=HORIZONTAL_MARGIN;
 
 void console(){
@@ -61,10 +61,8 @@ void init(){
   for(;*texto != 0;texto++){
     _syscall(_write, 2, *texto);
   }
-texto = "ESTO ES UN MENSAJE!!!!!!!!!!!! COSAS COSAS COSAS @@@@@@@@@@@@@@@";
-  for(;*texto != 0;texto++){
-    putchar(*texto);
-  }
+
+  printf("%s: %d", "Esto es un numero", 528383);
 }
 
 void consoleLoop(){
