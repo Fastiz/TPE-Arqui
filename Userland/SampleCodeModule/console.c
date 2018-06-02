@@ -76,13 +76,7 @@ void consoleLoop(){
 }
 
 int callCommand(){
-  // char c;
-  //
-  // while((c=_syscall(_read, 0))!='\n'){
-  //   if(c != 0){
-  //     putchar(c);
-  //   }
-  // }
+  printf("     @..@        \n    (\\--/)      \n   (.>__<.)               \n   ^^^  ^^^");
 }
 
 void checkSpace(){
@@ -130,9 +124,13 @@ void stdout(){
   char c;
   while(c=_syscall(_read, 1)){
     flag=1;
-    checkSpace();
-    writeChar(c, linePosition*letterSize*LETTER_SPACE, line*letterSize*ROW_HEIGHT, STDOUTColor, letterSize);
-    linePosition++;
+    if(c == '\n'){
+      newLine();
+    }else{
+      checkSpace();
+      writeChar(c, linePosition*letterSize*LETTER_SPACE, line*letterSize*ROW_HEIGHT, STDOUTColor, letterSize);
+      linePosition++;
+    }
   }
   if(flag)
     newLine();
