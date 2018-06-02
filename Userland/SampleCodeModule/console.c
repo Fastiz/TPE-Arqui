@@ -83,7 +83,7 @@ void checkSpace(){
   if(linePosition >= MAX_LINE_POSITION)
     newLine();
   else if(line*letterSize*ROW_HEIGHT >= windowHeight-VERTICAL_MARGIN*ROW_HEIGHT*letterSize){
-    moveScreenUp(letterSize*ROW_HEIGHT, consoleBackground);
+    _syscall(11, letterSize*ROW_HEIGHT);
     line--;
   }
 }

@@ -8,6 +8,7 @@
 #define _read 8
 #define _clearBuffer 9
 #define _readTime 10
+#define _movePixelsUp 11
 
 
 _syscall();
