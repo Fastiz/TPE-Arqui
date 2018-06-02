@@ -111,7 +111,6 @@ void stdin(){
 
     }
   }
-  moveScreenUp(letterSize*ROW_HEIGHT, consoleBackground);
   newLine();
   callCommand();
 }
