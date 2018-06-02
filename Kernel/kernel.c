@@ -88,6 +88,7 @@ void * initializeKernelBinary()
 
 int main()
 {
+	load_idt();
 	ncPrint("[Kernel Main]");
 	ncNewline();
 	ncPrint("  Sample code module at 0x");
@@ -106,7 +107,7 @@ int main()
 	ncNewline();
 
 	ncPrint("[Finished]");
-	load_idt();
+
 	setUpBuffers();
 	//pintar una linea
 	struct RGB color1={255,0,0}, color2={0,255,0}, color3={0,0,255}, black={0,0,0};

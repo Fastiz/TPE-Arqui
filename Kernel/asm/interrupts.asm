@@ -146,15 +146,23 @@ _irq05Handler:
 	irqHandlerMaster 5
 
 _syscallHandler:
+	push rbp
+	mov rbp, rsp
+
+	mov rdi, rax
+	mov rsi, rbx
+	push rdx
+	mov rdx, rcx
+	pop rcx
 	call syscallDispatcher
-	ret
+	leave
+	iretq
 
 
 haltcpu:
 	cli
 	hlt
 	ret
-
 
 
 SECTION .bss

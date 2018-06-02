@@ -72,3 +72,4 @@ struct vesa_mode {
 		*(pixelPos+1) = color->green;
 		*(pixelPos) = color->blue;
 }
+
