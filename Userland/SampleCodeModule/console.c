@@ -8,6 +8,7 @@
 #define LETTER_WIDTH 9
 #define HORIZONTAL_MARGIN 2
 #define VERTICAL_MARGIN 2
+#define MAX_LINE_POSITION (windowWidth-HORIZONTAL_MARGIN*2*letterSize)/(letterSize*LETTER_SPACE)
 
 #define LETTER_SPACE 10
 
@@ -24,7 +25,7 @@ static const struct RGB STDERRColor = {255, 50, 50};
 
  int windowWidth;
  int windowHeight;
-int letterSize = 1;
+int letterSize = 2;
 int line=VERTICAL_MARGIN, linePosition=HORIZONTAL_MARGIN;
 
 void console(){
@@ -81,7 +82,7 @@ int callCommand(){
 }
 
 void checkSpace(){
-  if(linePosition*letterSize*LETTER_SPACE >= windowWidth-HORIZONTAL_MARGIN*2*letterSize)
+  if(linePosition >= MAX_LINE_POSITION)
     newLine();
   else if(line*letterSize*ROW_HEIGHT >= windowHeight-VERTICAL_MARGIN*ROW_HEIGHT*letterSize){
     moveScreenUp(letterSize*ROW_HEIGHT, consoleBackground);
@@ -101,7 +102,12 @@ void stdin(){
   while((c = _syscall(_read, 0)) != '\n'){
     if(c==8){
       if(bufferIndex!=0){
-        writeChar(buffer[--bufferIndex], (--linePosition)*letterSize*LETTER_SPACE, line*letterSize*ROW_HEIGHT, consoleBackground, letterSize);
+        if(linePosition-1 == 1){
+          line--;
+          linePosition=MAX_LINE_POSITION-1;
+        }else
+          linePosition--;
+        writeChar(buffer[--bufferIndex], (linePosition)*letterSize*LETTER_SPACE, line*letterSize*ROW_HEIGHT, consoleBackground, letterSize);
       }
     }else if(c){
       checkSpace();
