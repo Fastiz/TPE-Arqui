@@ -58,12 +58,12 @@ void writeChar(char c, uint64_t x, uint64_t y, struct RGB color, uint64_t size){
 	writeString(string,currentX,currentY, color,currentSize);
 }*/
 
-/*void fillScreen(struct RGB color){
-	for(int y = 0; y < getHeight(); y++) {
-		for(int x = 0; x < getWidth(); x++)
-			writePixel(x,y,color);
+void fillScreen(struct RGB color){
+	for(int y = 0; y < _syscall(_getScreenHeight); y++) {
+		for(int x = 0; x < _syscall(_getScreenWidth); x++)
+			_syscall(_writePixel, x, y, color);
 	}
-}*/
+}
 
 /*void clearScreen() {
 	struct RGB black={0,0,0};
