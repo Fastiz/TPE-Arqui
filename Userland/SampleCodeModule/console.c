@@ -47,7 +47,7 @@ void readStdin(){
     text++;
   }
   char c;
-  while((c = _syscall(_read, 1)) != '\n'){
+  while((c = _syscall(_read, 0)) != '\n'){
     if(c){
       writeChar(c, linePosition*letterSize*LETTER_SPACE, line*letterSize*ROW_HEIGHT, STDINColor, letterSize);
       linePosition++;
