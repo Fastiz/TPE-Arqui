@@ -9,6 +9,7 @@
 #define _clearBuffer 9
 #define _readTime 10
 #define _movePixelsUp 11
+#define _replaceColor 12
 
 
 _syscall();
