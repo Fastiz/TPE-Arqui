@@ -14,4 +14,4 @@ void writeString(char* string, uint64_t x, uint64_t y, struct RGB color, uint64_
 void printString(char * string, struct RGB color);
 void fillScreen(struct RGB color);
 void clearScreen();
-void moveScreenUp();
+void moveScreenUp(int off);

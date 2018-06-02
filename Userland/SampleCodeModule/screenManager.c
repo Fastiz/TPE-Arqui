@@ -38,11 +38,11 @@ void writeChar(char c, uint64_t x, uint64_t y, struct RGB color, uint64_t size){
 }
 
 /*void setSize(char s) {
-	currentSize = s;
+	offset = s;
 }*/
 
 /*void putChar(char c, struct RGB color) {
-	writeChar(c, currentX,currentY, color, currentSize);
+	writeChar(c, currentX,currentY, color, offset);
 }*/
 
 /*void writeString(char* string, uint64_t x, uint64_t y, struct RGB color, uint64_t size){
@@ -55,7 +55,7 @@ void writeChar(char c, uint64_t x, uint64_t y, struct RGB color, uint64_t size){
 
 //solo imprime string
 /*void printString(char * string, struct RGB color) {
-	writeString(string,currentX,currentY, color,currentSize);
+	writeString(string,currentX,currentY, color,offset);
 }*/
 
 void fillScreen(struct RGB color){
@@ -72,14 +72,15 @@ void fillScreen(struct RGB color){
 	currentY = 0;
 }*/
 
-/*void moveScreenUp() {
-    int height = getHeight();
-    int width = getWidth();
-	for(int y = charHeight * currentSize; y < height; y++) {
+void moveScreenUp(int offset) {
+    int height = _syscall(_getScreenHeight);
+    int width = _syscall(_getScreenWidth);
+	for(int y = offset; y < height; y++) {
 		for(int x = 0; x < width; x++) {
-			writePixel(x, y - (charHeight * currentSize ), readPixel(x,y));
-			if(y >= height - (charHeight * currentSize))
-				writePixel(x, y, background);
+			struct RGB *color = (struct RGB *)_syscall(_readPixel,x,y);
+			_syscall(_writePixel, x, y - offset, *color);
+			if(y >= height - offset)
+				_syscall(_writePixel, x, y, background);
 		}
 	}
-}*/
+}
