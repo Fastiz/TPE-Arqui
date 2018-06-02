@@ -16,7 +16,8 @@ systemCall sysCalls[] = { 0, 0, 0,
   (systemCall)_write,
   (systemCall)_read,
   (systemCall)_clearBuffer,
-  (systemCall)_readTime
+  (systemCall)_readTime,
+  (systemCall)_scrollScreen
 };
 
 void syscallDispatcher(uint64_t index, uint64_t a, uint64_t b, uint64_t c){
@@ -60,4 +61,8 @@ uint64_t _readTime(uint64_t time) {
   if(time == 2)
     return getHour();
   return -1; //si me pasaron un parametro invalido
+}
+
+void _scrollScreen(uint64_t ammount) {
+  movePixelsUp(ammount);
 }

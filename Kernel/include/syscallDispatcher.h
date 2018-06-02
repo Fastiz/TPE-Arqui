@@ -11,3 +11,4 @@ uint64_t _writeBuffer(uint64_t index, uint64_t str);
 uint64_t _readBuffer(uint64_t index);
 uint64_t _clearBuffer(uint64_t index);
 uint64_t _readTime(uint64_t time);
+void _scrollScreen(uint64_t ammount);

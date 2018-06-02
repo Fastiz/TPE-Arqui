@@ -74,3 +74,17 @@ struct vesa_mode {
 		*(pixelPos+1) = color.green;
 		*(pixelPos) = color.blue;
 	}
+
+	void movePixelsUp(uint64_t ammount) {
+		int i = 0;
+		while(i <= (screen->width * screen->height) ){
+			int pixelIndexWrite = i;
+			char * pixelPosWrite = (char*)(screen->framebuffer + pixelIndexWrite*(screen->bpp/8));
+			int pixelIndexRead = i + (ammount* screen->width);
+			char * pixelPosRead = (char*)(screen->framebuffer + pixelIndexRead*(screen->bpp/8));
+			*(pixelPosWrite+2) = *(pixelPosRead+2);
+			*(pixelPosWrite+1) = *(pixelPosRead+1);
+			*(pixelPosWrite) = *(pixelPosRead);
+			i++;
+		}
+	}
