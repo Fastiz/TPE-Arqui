@@ -37,7 +37,7 @@ void commandDispatcher(char * commandLine) {
 		time();
 	else if(strcmp(command,"div0") == 1){
 		div0 = 1/0;
-		return;
+		div0 = 0;
 	}
 	else if(strcmp(command,"frog") == 1)
 		printf("     @..@        \n    (\\--/)      \n   (.>__<.)               \n   ^^^  ^^^");
