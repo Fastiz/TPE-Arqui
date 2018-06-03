@@ -38,6 +38,10 @@ static void man(char * str) {
 			printf(time);
 		else if(compareString(str,"div0") == 1)
 			printf(div0);
+		else if(compareString(str,"clock") == 1)
+			printf(clock);
+		else if(compareString(str,"clear") == 1)
+			printf(clear);
 		else
 			error();
 	}

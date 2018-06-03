@@ -41,6 +41,8 @@ void init(){
 }
 
 void consoleLoop(){
+  printf("Welcome. To get started, type man to check the different programs.");
+  stdout();
   while(1){
     stdin();
     stdout();
