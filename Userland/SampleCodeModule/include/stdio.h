@@ -4,6 +4,8 @@
 
 void printf(char* format, ...);
 
+int scanf(char* format, ...);
+
 void putchar(char c);
 
 char getchar();
