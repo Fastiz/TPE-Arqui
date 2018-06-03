@@ -52,7 +52,7 @@ void consoleLoop(){
 
 
 void checkSpace(){
-  if(linePosition >= MAX_LINE_POSITION)
+  if(linePosition + (letterSize * LETTER_WIDTH) > MAX_LINE_POSITION)
     newLine();
   else if(line*letterSize*ROW_HEIGHT >= windowHeight-VERTICAL_MARGIN*ROW_HEIGHT*letterSize){
     _syscall(_movePixelsUp, letterSize*ROW_HEIGHT, consoleBackground);

@@ -1,5 +1,6 @@
 #include "syscall.h"
 #include "stdlib.h"
+#include "graphicClock.h"
 
 #define MAX_SIZE 255
 
@@ -30,6 +31,8 @@ void commandDispatcher(char * commandLine) {
 		time();
 	else if(compareString(command,"frog") == 1)
 		printf("     @..@        \n    (\\--/)      \n   (.>__<.)               \n   ^^^  ^^^");
+	else if(compareString(command,"clock")==1)
+		drawClock();
 	else{
 		error();
 	}

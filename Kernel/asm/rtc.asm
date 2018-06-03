@@ -6,10 +6,14 @@ GLOBAL getHour
 	push rbp
 	mov rbp,rsp
 	mov rax, 0h
-	mov al, %1
+	mov al, %1h
 	out 70h, al
 	in al, 71h
-	pop rbp
+	pop cx
+	mov cx, 10
+	div cx
+	push cx
+	leave
 	ret
 %endmacro
 
