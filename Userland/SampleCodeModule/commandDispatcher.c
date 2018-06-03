@@ -26,12 +26,17 @@ void commandDispatcher(char * commandLine) {
 
 	}
 	parameter[j] = 0;
+	int div0;
 	if(compareString(command,"man") == 1)
 		man(parameter);
 	else if(compareString(command,"echo") == 1)
 		echo(parameter);
 	else if(compareString(command,"time") == 1)
 		time();
+	else if(compareString(command,"div0") == 1){
+		div0 = 1/0;
+		return;
+	}
 	else if(compareString(command,"frog") == 1)
 		printf("     @..@        \n    (\\--/)      \n   (.>__<.)               \n   ^^^  ^^^");
 	else
@@ -39,17 +44,20 @@ void commandDispatcher(char * commandLine) {
 }
 
 static void man(char * str) {
+	unsigned char * div0 = "div0 - Tests division by zero exception.";
 	unsigned char * echo = "echo - Prints string in standard output.";
 	unsigned char * time = "time - Displays time in hour:minutes:seconds in standard output.";
 
 	if(*str == 0){
-		printf("This is the command mannual. The following commands are:\n%s\n%s",echo,time);
+		printf("This is the command mannual. The following commands are:\n%s\n%s\n%s",div0,echo,time);
 	}
 	else{
 		if(compareString(str,"echo") == 1)
 			printf(echo);
 		else if(compareString(str,"time") == 1)
 			printf(time);
+		else if(compareString(str,"div0") == 1)
+			printf(div0);
 		else
 			error();
 	}
