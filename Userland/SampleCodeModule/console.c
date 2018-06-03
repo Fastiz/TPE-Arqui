@@ -89,6 +89,9 @@ void stdin(){
   }
   newLine();
   commandDispatcher(buffer);
+  int i;
+  for(i = 0; i < bufferIndex; i++)
+    buffer[i] = 0;
 }
 
 void stdout(){
