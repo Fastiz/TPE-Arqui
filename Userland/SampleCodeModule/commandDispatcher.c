@@ -1,9 +1,14 @@
 #include "syscall.h"
 #include "stdlib.h"
+<<<<<<< HEAD
 #include "graphicClock.h"
+=======
+#include "stdio.h"
+>>>>>>> 3d26dc859a4d0624c61a16d468f30b3ede8deda1
 
 #define MAX_SIZE 255
 
+static void man(char * str);
 static void echo(char * str);
 static void time();
 static void error();
@@ -25,23 +30,46 @@ void commandDispatcher(char * commandLine) {
 
 	}
 	parameter[j] = 0;
-	if(compareString(command,"echo") == 1)
+	int div0;
+	if(compareString(command,"man") == 1)
+		man(parameter);
+	else if(compareString(command,"echo") == 1)
 		echo(parameter);
 	else if(compareString(command,"time") == 1)
 		time();
+	else if(compareString(command,"div0") == 1){
+		div0 = 1/0;
+		return;
+	}
 	else if(compareString(command,"frog") == 1)
 		printf("     @..@        \n    (\\--/)      \n   (.>__<.)               \n   ^^^  ^^^");
 	else if(compareString(command,"clock")==1)
 		drawClock();
 	else{
 		error();
-	}
 }
 
+static void man(char * str) {
+	unsigned char * div0 = "div0 - Tests division by zero exception.";
+	unsigned char * echo = "echo - Prints string in standard output.";
+	unsigned char * time = "time - Displays time in hour:minutes:seconds in standard output.";
+
+	if(*str == 0){
+		printf("This is the command mannual. The following commands are:\n%s\n%s\n%s",div0,echo,time);
+	}
+	else{
+		if(compareString(str,"echo") == 1)
+			printf(echo);
+		else if(compareString(str,"time") == 1)
+			printf(time);
+		else if(compareString(str,"div0") == 1)
+			printf(div0);
+		else
+			error();
+	}
+}
 static void echo(char * str){
-	int i;
-	for(i = 0; str[i] != 0; i++)
-		_syscall(_write,1,str[i]);
+	printf(str);
 }
 static void time(){
 	char seconds[16] = {0};
@@ -50,18 +78,7 @@ static void time(){
 	intToChar(_syscall(_readTime,0),16,seconds);
 	intToChar(_syscall(_readTime,1),16,minutes);
 	intToChar(_syscall(_readTime,2),16,hour);
-
-	int i;
-	for(i = 0; hour[i] != 0; i++)
-		_syscall(_write,1,hour[i]);
-	_syscall(_write,1,':');
-
-	for(i = 0; minutes[i] != 0; i++)
-		_syscall(_write,1,minutes[i]);
-	_syscall(_write,1,':');
-
-	for(i = 0; seconds[i] != 0; i++)
-		_syscall(_write,1,seconds[i]);
+	printf("%s:%s:%s",hour,minutes,seconds);
 }
 static void error(){
 	int i;

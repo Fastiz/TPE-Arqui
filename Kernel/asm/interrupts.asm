@@ -19,6 +19,7 @@ GLOBAL _syscallHandler
 EXTERN exceptionDispatcher
 EXTERN irqDispatcher
 EXTERN syscallDispatcher
+EXTERN main
 
 SECTION .text
 
@@ -73,16 +74,16 @@ SECTION .text
 %endmacro
 
 %macro exceptionHandler 1
+	mov rsi, [rsp] ; dirección donde ocurrió la excepción.
 	pushState
 
 	mov rdi, %1 ; pasaje de parametro
-	;lea rsi, [_nextInstruction]; dirección a donde apunta el instruction pointer.
-	_nextInstruction:
-	;mov rdx, rsp; pointer al stack donde estan pusheados los registros
+	mov rdx, rsp; pointer al stack donde estan pusheados los registros
 	call exceptionDispatcher
-
 	popState
-	iret
+
+	inc rsi ; me muevo a la proxima dirección donde ocurrió la excepción
+	jmp rsi
 
 %endmacro
 
