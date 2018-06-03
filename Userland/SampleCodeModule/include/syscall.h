@@ -10,6 +10,8 @@
 #define _readTime 10
 #define _movePixelsUp 11
 #define _replaceColor 12
-
+#define _backupScreen 13
+#define _restoreScreen 14
+#define _fillScreen 15
 
 _syscall();

@@ -5,14 +5,12 @@
 #include "commandDispatcher.h"
 
 #define ROW_HEIGHT 16
-#define LETTER_WIDTH 9
 #define HORIZONTAL_MARGIN 2
 #define VERTICAL_MARGIN 0
-#define MAX_LINE_POSITION (windowWidth-HORIZONTAL_MARGIN*2*letterSize)/(letterSize*LETTER_SPACE)
-
+#define MAX_LINE_POSITION (windowWidth-(HORIZONTAL_MARGIN*LETTER_SPACE))
 #define LETTER_SPACE 10
 
-char buffer[200];
+char buffer[20000];
 int bufferIndex =0;
 
 static const char* consoleName = "Consola\\::";
@@ -39,7 +37,7 @@ void init(){
 
   windowWidth = _syscall(_getScreenWidth);
   windowHeight = _syscall(_getScreenHeight);
-  fillScreen(consoleBackground);
+  _syscall(_fillScreen,consoleBackground);
 }
 
 void consoleLoop(){
@@ -52,7 +50,7 @@ void consoleLoop(){
 
 
 void checkSpace(){
-  if(linePosition + (letterSize * LETTER_WIDTH) > MAX_LINE_POSITION)
+  if((linePosition + 1) * LETTER_SPACE * letterSize > MAX_LINE_POSITION)
     newLine();
   else if(line*letterSize*ROW_HEIGHT >= windowHeight-VERTICAL_MARGIN*ROW_HEIGHT*letterSize){
     _syscall(_movePixelsUp, letterSize*ROW_HEIGHT, consoleBackground);
@@ -72,19 +70,25 @@ void stdin(){
   while((c = _syscall(_read, 0)) != '\n'){
     if(c==8){
       if(bufferIndex!=0){
-        if(linePosition-1 == 1){
+        if(linePosition <= HORIZONTAL_MARGIN){
           line--;
-          linePosition=MAX_LINE_POSITION-1;
+          linePosition=(MAX_LINE_POSITION / (LETTER_SPACE * letterSize)) - 1;
         }else
           linePosition--;
-        writeChar(buffer[--bufferIndex], (linePosition)*letterSize*LETTER_SPACE, line*letterSize*ROW_HEIGHT, consoleBackground, letterSize);
+        
+        bufferIndex--;
+
+        	/* LE PUSE  buffer[bufferIndex] = 0; PORQUE SI NO CUANDO ESCRIBIS, DESPUES BORRAS Y ESCRIBIS UN COMANDO EL BUFFER NO ESCRIBE UN 0 DONDE BORRASTE,
+	      ENTONCES NUNCA ENCUENTRA EL COMANDO, PORQUE EL STRING NO TIENE UN 0 AL FINAL (cuando los compara). OTRA OPCION ES
+	      CAMBIAR EL && POR UN || EN LA QUE COMPARA STRINGS*/
+        buffer[bufferIndex] = 0;
+        writeBlock((linePosition)*letterSize*LETTER_SPACE, line*letterSize*ROW_HEIGHT, consoleBackground, LETTER_SPACE*letterSize, ROW_HEIGHT*letterSize);
       }
     }else if(c){
       checkSpace();
       buffer[bufferIndex++] = c;
       writeChar(c, linePosition*letterSize*LETTER_SPACE, line*letterSize*ROW_HEIGHT, STDINColor, letterSize);
       linePosition++;
-
     }
   }
   newLine();
@@ -92,6 +96,7 @@ void stdin(){
   int i;
   for(i = 0; i < bufferIndex; i++)
     buffer[i] = 0;
+  bufferIndex = 0;
 }
 
 void stdout(){
@@ -128,8 +133,15 @@ void stderr(){
     newLine();
 }
 
+void resetConsole(){
+  _syscall(_fillScreen, consoleBackground);
+  linePosition = HORIZONTAL_MARGIN;
+  line = VERTICAL_MARGIN;
+}
+
 void newLine(){
   line++;
   linePosition = HORIZONTAL_MARGIN;
   checkSpace();
 }
+

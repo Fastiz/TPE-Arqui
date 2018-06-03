@@ -117,8 +117,6 @@ int main()
 	
 	int i,j,k;
 
-	printString("YA FUNCIONO",color1);
-	double x = 0;
 	int true = 1;
 	while(true){}
 	return 0;

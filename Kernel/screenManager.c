@@ -1,4 +1,4 @@
-#include <videoDriver.h>
+/*#include <videoDriver.h>
 #include <defs.h>
 #include <font.h>
 #include <stdint.h>
@@ -80,3 +80,4 @@ void moveScreenUp() {
 		}
 	}
 }
+*/

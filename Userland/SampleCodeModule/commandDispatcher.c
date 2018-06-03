@@ -1,10 +1,8 @@
 #include "syscall.h"
 #include "stdlib.h"
-<<<<<<< HEAD
 #include "graphicClock.h"
-=======
 #include "stdio.h"
->>>>>>> 3d26dc859a4d0624c61a16d468f30b3ede8deda1
+#include "console.h"
 
 #define MAX_SIZE 255
 
@@ -12,6 +10,57 @@ static void man(char * str);
 static void echo(char * str);
 static void time();
 static void error();
+
+static int compareString(char * str1, char * str2) {
+	int i;
+	char c1,c2;
+	
+	for(i = 0; str1[i] != 0 || str2[i] != 0; i++){
+		if(str1[i] != str2[i])
+			return 0;
+	}
+	return 1;
+}
+
+static void man(char * str) {
+	unsigned char * div0 = "div0 - Tests division by zero exception.";
+	unsigned char * echo = "echo - Prints string in standard output.";
+	unsigned char * time = "time - Displays time in hour:minutes:seconds in standard output.";
+	unsigned char * clock = "clock - Displays a digital clock in hour:minutes:seconds.";
+	unsigned char * clear = "clear - Clear the screen";
+	if(*str == 0){
+		printf("This is the command mannual. The following commands are:\n%s\n%s\n%s\n%s\n%s",div0,echo,time,clock,clear);
+	}
+	else{
+		if(compareString(str,"echo") == 1)
+			printf(echo);
+		else if(compareString(str,"time") == 1)
+			printf(time);
+		else if(compareString(str,"div0") == 1)
+			printf(div0);
+		else
+			error();
+	}
+}
+static void echo(char * str){
+	printf(str);
+}
+
+static void time(){
+	char seconds[16] = {0};
+	char minutes[16] = {0};
+	char hour[16] = {0};
+	intToChar(_syscall(_readTime,0),16,seconds);
+	intToChar(_syscall(_readTime,1),16,minutes);
+	intToChar(_syscall(_readTime,2),16,hour);
+	printf("%s:%s:%s",hour,minutes,seconds);
+}
+static void error(){
+	int i;
+	char * errorMsg = "Command not recognized.";
+	for(i = 0; errorMsg[i] != 0; i++)
+		_syscall(_write,2,errorMsg[i]);
+}
 
 void commandDispatcher(char * commandLine) {
 	int i,j;
@@ -45,53 +94,9 @@ void commandDispatcher(char * commandLine) {
 		printf("     @..@        \n    (\\--/)      \n   (.>__<.)               \n   ^^^  ^^^");
 	else if(compareString(command,"clock")==1)
 		drawClock();
+	else if(compareString(command,"clear")==1)
+		resetConsole();
 	else{
 		error();
-}
-
-static void man(char * str) {
-	unsigned char * div0 = "div0 - Tests division by zero exception.";
-	unsigned char * echo = "echo - Prints string in standard output.";
-	unsigned char * time = "time - Displays time in hour:minutes:seconds in standard output.";
-
-	if(*str == 0){
-		printf("This is the command mannual. The following commands are:\n%s\n%s\n%s",div0,echo,time);
 	}
-	else{
-		if(compareString(str,"echo") == 1)
-			printf(echo);
-		else if(compareString(str,"time") == 1)
-			printf(time);
-		else if(compareString(str,"div0") == 1)
-			printf(div0);
-		else
-			error();
-	}
-}
-static void echo(char * str){
-	printf(str);
-}
-static void time(){
-	char seconds[16] = {0};
-	char minutes[16] = {0};
-	char hour[16] = {0};
-	intToChar(_syscall(_readTime,0),16,seconds);
-	intToChar(_syscall(_readTime,1),16,minutes);
-	intToChar(_syscall(_readTime,2),16,hour);
-	printf("%s:%s:%s",hour,minutes,seconds);
-}
-static void error(){
-	int i;
-	char * errorMsg = "Command not recognized.";
-	for(i = 0; errorMsg[i] != 0; i++)
-		_syscall(_write,2,errorMsg[i]);
-}
-int compareString(char * str1, char * str2) {
-	int i;
-	char c1,c2;
-	for(i = 0; str1[i] != 0 || str2[i] != 0; i++){
-		if(str1[i] != str2[i])
-			return 0;
-	}
-	return 1;
 }

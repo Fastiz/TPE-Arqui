@@ -103,27 +103,20 @@ void writeInt(uint64_t num, uint64_t x, uint64_t y, struct RGB color, struct RGB
 	writeChar(c, currentX,currentY, color, offset);
 }*/
 
-/*void writeString(char* string, uint64_t x, uint64_t y, struct RGB color, uint64_t size){
+void writeString(char* string, uint64_t x, uint64_t y, struct RGB color, struct RGB background, uint64_t size){
 	while(*string != 0){
-		putChar(*string,color);
+		writeCharWithBackground(*string,x,y,color,background,size);
 		x += (charWidth + 1) * size;
 		string++;
 	}
-}*/
+}
 
 //solo imprime string
 /*void printString(char * string, struct RGB color) {
 	writeString(string,currentX,currentY, color,offset);
 }*/
 
-void fillScreen(struct RGB color){
-	for(int y = 0; y < _syscall(_getScreenHeight); y++) {
-		for(int x = 0; x < _syscall(_getScreenWidth); x++)
-			_syscall(_writePixel, x, y, color);
-	}
-}
-
 void clearScreen() {
 	struct RGB black={0,0,0};
-	fillScreen(black);
+	_syscall(_fillScreen,black);
 }

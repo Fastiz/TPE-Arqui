@@ -111,3 +111,26 @@ struct vesa_mode {
 			pixelPos += screen->bpp/8;
 		}
 	}
+
+	void backupScreen() {
+		for(int i = 0; i <= screen->width; i++) {
+			for(int j= 0; j<= screen->height; j++){
+				backup[i][j] = readPixel(i,j);
+			}
+		}
+	}
+
+	void restoreScreen() {
+		for(int j = 0; j <= screen->height; j++) {
+			for(int i = 0; i<= screen->width; i++){
+				writePixel(i,j,backup[i][j]);
+			}
+		}
+	}
+
+	void fillScreen(struct RGB color){
+		for(int j = 0; j < screen->height; j++) {
+			for(int i = 0; i < screen->width; i++)
+				writePixel(i,j,color);
+		}
+	}
