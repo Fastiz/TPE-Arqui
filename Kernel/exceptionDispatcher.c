@@ -15,7 +15,7 @@ void exceptionDispatcher(int exceptionNum, uint64_t * instructionPointer, uint64
 }
 
 void zero_division(uint64_t * instructionPointer, uint64_t * stackPointer){
-	writeStrBuffer(STD_ERR,"ERROR: DIVISIÓN POR CERO\n");
+	writeStrBuffer(STD_ERR,"ERROR: DIVISION POR CERO\n");
 	writeStrBuffer(STD_ERR,"RIP: ");
 	writeIntBuffer(STD_ERR,instructionPointer,16);
 	writeCharBuffer(STD_ERR,'\n');
@@ -24,7 +24,7 @@ void zero_division(uint64_t * instructionPointer, uint64_t * stackPointer){
 	for(i = 0; i < REGISTER_NUM; i++){
 		writeStrBuffer(STD_ERR,registers[i]);
 		writeStrBuffer(STD_ERR,": ");
-		writeIntBuffer(STD_ERR,stackPointer + i*8,16);
+		writeIntBuffer(STD_ERR,*(stackPointer + i),16);
 		writeCharBuffer(STD_ERR,'\n');
 	}
 }
