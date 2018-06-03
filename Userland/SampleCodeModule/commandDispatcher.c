@@ -17,7 +17,7 @@ void commandDispatcher(char * commandLine) {
 	unsigned char parameter[MAX_SIZE] = {0};
 	int readingCommand = 1;
 	for(i = 0, j = 0; commandLine[i] != 0 && i < MAX_SIZE - 1 && j < MAX_SIZE - 1; i++){
-		if(commandLine[i] == ' '){
+		if(commandLine[i] == ' ' && readingCommand){
 			readingCommand = 0;
 			command[i] = 0;
 		}
