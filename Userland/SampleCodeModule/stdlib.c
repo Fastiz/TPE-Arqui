@@ -1,5 +1,16 @@
 #include <stdint.h>
 
+int strcmp(char * str1, char* str2) {
+	int i;
+	char c1,c2;
+	
+	for(i = 0; str1[i] != 0 || str2[i] != 0; i++){
+		if(str1[i] != str2[i])
+			return 0;
+	}
+	return 1;
+}
+
 char * intToChar(int value,int base,char * buffer) {
 	char *p = buffer;
 	char *p1, *p2;
