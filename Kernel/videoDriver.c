@@ -54,7 +54,7 @@ struct vesa_mode {
 
 	struct RGB readPixel(uint64_t width, uint64_t height) {
 		struct RGB color = {0,0,0};
-		if(!(width > screen->width || height > screen->height || width < 0 || height < 0)) {
+		if(!(width >= screen->width || height >= screen->height || width < 0 || height < 0)) {
 			int pixelIndex = width + height*(screen->width);
 		    char * pixelPos = (char*)(screen->framebuffer + pixelIndex*(screen->bpp/8));
 		    color.red=*(pixelPos+2);
@@ -65,7 +65,7 @@ struct vesa_mode {
 	}
 
 	void writePixel(uint64_t width, uint64_t height, struct RGB color){
-		if(width > screen->width || height > screen->height || width < 0 || height < 0)
+		if(width >= screen->width || height >= screen->height || width < 0 || height < 0)
 			return;
 
 	    int pixelIndex = width + height*(screen->width);
@@ -102,7 +102,7 @@ struct vesa_mode {
 	void replaceColor(struct RGB colorOld, struct RGB colorNew) {
 		char * pixelPos = (char*)(screen->framebuffer);
 		char * maxPos = (char *)(screen->framebuffer + screen->height*screen->width *(screen->bpp/8));
-		while(pixelPos <= maxPos ){
+		while(pixelPos < maxPos ){
 			if(*(pixelPos+2) == colorOld.red && *(pixelPos+1) == colorOld.green && *(pixelPos) == colorOld.blue) {
 				*(pixelPos+2) = colorNew.red;
 				*(pixelPos+1) = colorNew.green;
@@ -113,16 +113,16 @@ struct vesa_mode {
 	}
 
 	void backupScreen() {
-		for(int i = 0; i <= screen->width; i++) {
-			for(int j= 0; j<= screen->height; j++){
+		for(int i = 0; i < screen->width; i++) {
+			for(int j= 0; j< screen->height; j++){
 				backup[i][j] = readPixel(i,j);
 			}
 		}
 	}
 
 	void restoreScreen() {
-		for(int j = 0; j <= screen->height; j++) {
-			for(int i = 0; i<= screen->width; i++){
+		for(int j = 0; j < screen->height; j++) {
+			for(int i = 0; i< screen->width; i++){
 				writePixel(i,j,backup[i][j]);
 			}
 		}

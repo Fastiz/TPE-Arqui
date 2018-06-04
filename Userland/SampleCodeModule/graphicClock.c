@@ -1,6 +1,7 @@
 #include "syscall.h"
 #include "screenManager.h"
 #include "font.h"
+#include "stdlib.h"
 
 #define NUM_OF_COLORS 6
 #define MARGIN 10
@@ -15,16 +16,6 @@ int numbersColor = 1;
 int backgroundColorIndex = 0;
 struct RGB helpColor = {190,180,220};  
 struct RGB colors[] = {{0,0,0},{255,0,0},{0,255,0},{0,0,255},{0,255,255},{255,255,0}};
-
-static int decToHex(int num) {
-    int aux = 0;
-    int mult1 = 1;
-    int mult2 = 1;
-    for(; num != 0; num/=10, mult1*=10, mult2*=16) {
-        aux += (num %10) * mult1 * mult1 / mult2;
-    }
-    return aux;
-}
 
 void writeSettings() {
     _syscall(_fillScreen, colors[backgroundColorIndex]);
