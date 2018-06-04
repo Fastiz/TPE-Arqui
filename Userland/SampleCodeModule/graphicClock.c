@@ -13,7 +13,7 @@ int helpLetterSize = 2;
 
 int numbersColor = 1;
 int backgroundColorIndex = 0;
-struct RGB helpColor = {220,220,220};  
+struct RGB helpColor = {190,180,220};  
 struct RGB colors[] = {{0,0,0},{255,0,0},{0,255,0},{0,0,255},{0,255,255},{255,255,0}};
 
 static int decToHex(int num) {
@@ -24,6 +24,15 @@ static int decToHex(int num) {
         aux += (num %10) * mult1 * mult1 / mult2;
     }
     return aux;
+}
+
+void writeSettings() {
+    _syscall(_fillScreen, colors[backgroundColorIndex]);
+    writeString("[C]hange numbers color",MARGIN,helpStartRow,helpColor,colors[backgroundColorIndex], helpLetterSize);
+    writeString("[R]educe size",MARGIN,helpStartRow+(helpLetterSize*(charHeight +1)),helpColor,colors[backgroundColorIndex], helpLetterSize);
+    writeString("[I]ncrement size",MARGIN,helpStartRow+(2*(helpLetterSize*(charHeight +1))),helpColor,colors[backgroundColorIndex], helpLetterSize);
+    writeString("[B]ackground color",MARGIN,helpStartRow+(3*(helpLetterSize*(charHeight +1))),helpColor,colors[backgroundColorIndex], helpLetterSize);
+    writeString("[Q]uit clock",MARGIN,helpStartRow+(4*(helpLetterSize*(charHeight +1))),helpColor,colors[backgroundColorIndex], helpLetterSize);
 }
 
 void drawClock(){
@@ -39,13 +48,7 @@ void drawClock(){
 
     int maxSize = size;
     
-    _syscall(_fillScreen, colors[backgroundColorIndex]);
-    
-    writeString("[C]hange numbers color",MARGIN,helpStartRow,helpColor,colors[backgroundColorIndex], helpLetterSize);
-    writeString("[R]educe size",MARGIN,helpStartRow+(helpLetterSize*(charHeight +1)),helpColor,colors[backgroundColorIndex], helpLetterSize);
-    writeString("[I]ncrement size",MARGIN,helpStartRow+(2*(helpLetterSize*(charHeight +1))),helpColor,colors[backgroundColorIndex], helpLetterSize);
-    writeString("[B]ackground color",MARGIN,helpStartRow+(3*(helpLetterSize*(charHeight +1))),helpColor,colors[backgroundColorIndex], helpLetterSize);
-    writeString("[Q]uit clock",MARGIN,helpStartRow+(4*(helpLetterSize*(charHeight +1))),helpColor,colors[backgroundColorIndex], helpLetterSize);
+    writeSettings();
     
     while((c = _syscall(_read, 0)) != 'q') {
         posX = MARGIN;
