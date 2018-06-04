@@ -41,7 +41,7 @@ void init(){
 }
 
 void consoleLoop(){
-  printf("Welcome. To get started, type man to check the different programs.");
+  printf("Welcome to MikeOS. To get started, type man to check the different programs.");
   stdout();
   while(1){
     stdin();

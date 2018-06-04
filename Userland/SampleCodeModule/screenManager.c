@@ -22,11 +22,7 @@ void writeBlock(uint64_t width, uint64_t height, struct RGB color, uint64_t size
 void writeCharWithBackground(char c, uint64_t x, uint64_t y, struct RGB color, struct RGB background, uint64_t size){
 	if(c < 32 || c > 255) //falta ver el limite de c, no es 255 en esta fuente
 		return;
-	//no creo que deberia ir aca
-	if(x + (charWidth * size) > _syscall(_getScreenWidth)) {
-		y+= charHeight * size;
-		x = 0;
-	}
+
 	char * posOfChar = getCharPos(c);
 	for(int j = 0; j < charHeight ; j++) {
 		for(int i = 0, k = 128; i < charWidth; i++, k/=2){
@@ -36,12 +32,6 @@ void writeCharWithBackground(char c, uint64_t x, uint64_t y, struct RGB color, s
 				writeBlock(i*size + x, j*size + y, background,size,size);
 		}
 	}
-    /*currentX+= size * charWidth;
-    if(currentX >= getWidth()) {
-        currentX = 0;
-        currentY += charHeight * size;
-    }*/
-
 }
 
 void writeChar(char c, uint64_t x, uint64_t y, struct RGB color, uint64_t size){
@@ -59,12 +49,6 @@ void writeChar(char c, uint64_t x, uint64_t y, struct RGB color, uint64_t size){
 				writeBlock(i*size + x, j*size + y, color,size,size);
 		}
 	}
-    /*currentX+= size * charWidth;
-    if(currentX >= getWidth()) {
-        currentX = 0;
-        currentY += charHeight * size;
-    }*/
-
 }
 
 void writeIntR(uint64_t num, uint64_t x, uint64_t y, struct RGB color,struct RGB background, uint64_t size){
