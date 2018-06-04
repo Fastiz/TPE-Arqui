@@ -78,13 +78,9 @@ static void echo(char * str){
 }
 
 static void time(){
-	char seconds[16] = {0};
-	char minutes[16] = {0};
-	char hour[16] = {0};
-	intToChar(_syscall(_readTime,0),16,seconds);
-	intToChar(_syscall(_readTime,1),16,minutes);
-	intToChar(_syscall(_readTime,2),16,hour);
-	printf("%s:%s:%s",hour,minutes,seconds);
+	char clockTime[9] = {0};
+	clockString(clockTime);
+	printf("%s",clockTime);
 }
 static void error(){
 	int i;

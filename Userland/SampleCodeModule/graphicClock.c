@@ -40,38 +40,17 @@ void drawClock(){
     int maxSize = size;
     
     _syscall(_fillScreen, colors[backgroundColorIndex]);
-     writeString("[C]hange numbers color",MARGIN,helpStartRow,helpColor,colors[backgroundColorIndex], helpLetterSize);
-            writeString("[R]educe size",MARGIN,helpStartRow+(helpLetterSize*(charHeight +1)),helpColor,colors[backgroundColorIndex], helpLetterSize);
-            writeString("[I]ncrement size",MARGIN,helpStartRow+(2*(helpLetterSize*(charHeight +1))),helpColor,colors[backgroundColorIndex], helpLetterSize);
-            writeString("[B]ackground color",MARGIN,helpStartRow+(3*(helpLetterSize*(charHeight +1))),helpColor,colors[backgroundColorIndex], helpLetterSize);
-            writeString("[Q]uit clock",MARGIN,helpStartRow+(4*(helpLetterSize*(charHeight +1))),helpColor,colors[backgroundColorIndex], helpLetterSize);
+    
+    writeString("[C]hange numbers color",MARGIN,helpStartRow,helpColor,colors[backgroundColorIndex], helpLetterSize);
+    writeString("[R]educe size",MARGIN,helpStartRow+(helpLetterSize*(charHeight +1)),helpColor,colors[backgroundColorIndex], helpLetterSize);
+    writeString("[I]ncrement size",MARGIN,helpStartRow+(2*(helpLetterSize*(charHeight +1))),helpColor,colors[backgroundColorIndex], helpLetterSize);
+    writeString("[B]ackground color",MARGIN,helpStartRow+(3*(helpLetterSize*(charHeight +1))),helpColor,colors[backgroundColorIndex], helpLetterSize);
+    writeString("[Q]uit clock",MARGIN,helpStartRow+(4*(helpLetterSize*(charHeight +1))),helpColor,colors[backgroundColorIndex], helpLetterSize);
+    
     while((c = _syscall(_read, 0)) != 'q') {
         posX = MARGIN;
-        char clockTime[16] = {0};
-
-        int secondsInt = _syscall(_readTime,0);
-        int minutesInt =_syscall(_readTime,1);
-        int hourInt =_syscall(_readTime,2);
-
-        intToChar(secondsInt,16,clockTime + 6);
-        intToChar(minutesInt,16,clockTime + 3);
-        intToChar(hourInt,16,clockTime);
-
-        if(hourInt < 10) {
-           clockTime[1] = clockTime[0];
-           clockTime[0] = '0';
-        }
-        if(minutesInt < 10){
-            clockTime[4] = clockTime[3];
-            clockTime[3] = '0';
-        }
-        if(secondsInt < 10) {
-            clockTime[7] = clockTime[6];
-            clockTime[6] = '0';
-        }
-
-        clockTime[2] = ':';
-        clockTime[5] = ':';
+        char clockTime[9] = {0};
+        clockString(clockTime);
 
         switch(c) {
             case 'i':

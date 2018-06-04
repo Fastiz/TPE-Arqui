@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <syscall.h>
 
 int strcmp(char * str1, char* str2) {
 	int i;
@@ -41,4 +42,31 @@ char * intToChar(int value,int base,char * buffer) {
 	}
 
 	return digits;
+}
+
+void clockString(char * clockTime){
+		int secondsInt = _syscall(_readTime,0);
+        int minutesInt =_syscall(_readTime,1);
+        int hourInt =_syscall(_readTime,2);
+
+        intToChar(secondsInt,16,clockTime + 6);
+        intToChar(minutesInt,16,clockTime + 3);
+        intToChar(hourInt,16,clockTime);
+
+        if(hourInt < 10) {
+           clockTime[1] = clockTime[0];
+           clockTime[0] = '0';
+        }
+        if(minutesInt < 10){
+            clockTime[4] = clockTime[3];
+            clockTime[3] = '0';
+        }
+        if(secondsInt < 10) {
+            clockTime[7] = clockTime[6];
+            clockTime[6] = '0';
+        }
+
+        clockTime[2] = ':';
+        clockTime[5] = ':';
+		clockTime[8] = '\0';
 }
