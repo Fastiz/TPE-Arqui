@@ -5,6 +5,7 @@
 
 #define NUM_OF_COLORS 6
 #define MARGIN 10
+#define LARGEST_MESSAGE 22 
 
 int posX = MARGIN;
 int posY = MARGIN;
@@ -18,6 +19,8 @@ struct RGB helpColor = {190,180,220};
 struct RGB colors[] = {{0,0,0},{255,0,0},{0,255,0},{0,0,255},{0,255,255},{255,255,0}};
 
 void writeSettings() {
+    if((MARGIN * 2) + ((charWidth+1)*helpLetterSize*(LARGEST_MESSAGE-1)) + (charWidth*size) >= _syscall(_getScreenWidth))
+        helpLetterSize = 1;
     _syscall(_fillScreen, colors[backgroundColorIndex]);
     writeString("[C]hange numbers color",MARGIN,helpStartRow,helpColor,colors[backgroundColorIndex], helpLetterSize);
     writeString("[R]educe size",MARGIN,helpStartRow+(helpLetterSize*(charHeight +1)),helpColor,colors[backgroundColorIndex], helpLetterSize);

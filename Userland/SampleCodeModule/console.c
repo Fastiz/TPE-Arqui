@@ -34,7 +34,6 @@ void console(){
 //void newLine(){}
 
 void init(){
-
   windowWidth = _syscall(_getScreenWidth);
   windowHeight = _syscall(_getScreenHeight);
   _syscall(_fillScreen,consoleBackground);

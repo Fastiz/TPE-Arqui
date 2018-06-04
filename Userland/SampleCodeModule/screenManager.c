@@ -89,6 +89,12 @@ void writeInt(uint64_t num, uint64_t x, uint64_t y, struct RGB color, struct RGB
 
 void writeString(char* string, uint64_t x, uint64_t y, struct RGB color, struct RGB background, uint64_t size){
 	while(*string != 0){
+		if(x + (charWidth * size) >= _syscall(_getScreenWidth)){
+			x = 0;
+			y+=(charHeight+1) * size;
+		}
+		if(y + (charHeight * size) >= _syscall(_getScreenHeight))
+			return;
 		writeCharWithBackground(*string,x,y,color,background,size);
 		x += (charWidth + 1) * size;
 		string++;
