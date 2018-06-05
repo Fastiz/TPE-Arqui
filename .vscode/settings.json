@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "font.h": "c"
+        "font.h": "c",
+        "screenmanager.h": "c"
     }
 }

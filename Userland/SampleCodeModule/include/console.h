@@ -6,3 +6,4 @@ void stdout();
 void stdin();
 void consoleLoop();
 void init();
+void changeTheme();

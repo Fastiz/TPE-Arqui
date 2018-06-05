@@ -1,7 +1,7 @@
-#include "syscall.h"
-#include "screenManager.h"
-#include "font.h"
-#include "stdlib.h"
+#include <syscall.h>
+#include <screenManager.h>
+#include <font.h>
+#include <stdlib.h>
 
 #define NUM_OF_COLORS 6
 #define MARGIN 10
@@ -18,7 +18,7 @@ int backgroundColorIndex = 0;
 struct RGB helpColor = {190,180,220};  
 struct RGB colors[] = {{0,0,0},{255,0,0},{0,255,0},{0,0,255},{0,255,255},{255,255,0}};
 
-void writeSettings() {
+void static writeSettings() {
     if((MARGIN * 2) + ((CHAR_WIDTH+1)*helpLetterSize*(LARGEST_MESSAGE-1)) + (CHAR_WIDTH*size) >= _syscall(_getScreenWidth))
         helpLetterSize = 1;
     _syscall(_fillScreen, colors[backgroundColorIndex]);

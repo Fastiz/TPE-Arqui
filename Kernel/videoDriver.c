@@ -42,7 +42,7 @@ struct vesa_mode {
 } __attribute__ ((packed));
 
 	struct vesa_mode * screen = (struct vesa_mode*)0x0000000000005C00;
-	struct RGB backup[1020][1000];
+	struct RGB backup[1050][950];
 
 	uint64_t getWidth(){
 		return screen->width;
