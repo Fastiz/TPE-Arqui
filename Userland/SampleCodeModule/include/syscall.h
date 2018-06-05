@@ -15,4 +15,4 @@
 #define _fillScreen 15
 #define _writeBlock 16
 
-_syscall();
+uint64_t _syscall(uint64_t, ...);

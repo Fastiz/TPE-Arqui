@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <std_buffers.h>
 #include <lib.h>
+#include <exceptionDispatcher.h>
 
 #define REGISTER_NUM 15
 
@@ -27,7 +28,7 @@ void invalid_opcode(uint64_t * instructionPointer, uint64_t * stackPointer){
 
 void writeRegisters(uint64_t * instructionPointer, uint64_t * stackPointer){
 	writeStrBuffer(STD_ERR,"RIP: ");
-	writeIntBuffer(STD_ERR,instructionPointer,16);
+	writeIntBuffer(STD_ERR,(uint64_t)instructionPointer,16);
 	writeCharBuffer(STD_ERR,'\n');
 	char * registers[] = {"R15","R14","R13","R12","R11","R10","R9","R8","RSI","RDI","RBP","RDX","RCX","RBX","RAX"};
 	int i;

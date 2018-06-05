@@ -55,8 +55,8 @@ struct vesa_mode {
 	struct RGB readPixel(uint64_t width, uint64_t height) {
 		struct RGB color = {0,0,0};
 		if(!(width >= screen->width || height >= screen->height || width < 0 || height < 0)) {
-			int pixelIndex = width + height*(screen->width);
-		    char * pixelPos = (char*)(screen->framebuffer + pixelIndex*(screen->bpp/8));
+			uint64_t pixelIndex = width + height*(screen->width);
+		    char * pixelPos = (char*)(screen->framebuffer + (uint64_t)pixelIndex*(screen->bpp/8));
 		    color.red=*(pixelPos+2);
 		    color.green=*(pixelPos+1);
 		    color.blue=*(pixelPos);
@@ -68,7 +68,7 @@ struct vesa_mode {
 		if(width >= screen->width || height >= screen->height || width < 0 || height < 0)
 			return;
 
-	    int pixelIndex = width + height*(screen->width);
+	    uint64_t pixelIndex = width + height*(screen->width);
 	    char * pixelPos = (char*)(screen->framebuffer + pixelIndex*(screen->bpp/8));
 		*(pixelPos+2) = color.red;
 		*(pixelPos+1) = color.green;
@@ -77,10 +77,10 @@ struct vesa_mode {
 
 	void movePixelsUp(uint64_t ammount, struct RGB background) {
 
-		char * pixelPosWrite = (char*)(screen->framebuffer);
-		char * pixelPosRead = (char*)(screen->framebuffer + (ammount* screen->width)*(screen->bpp/8));
-		char * maxPos = (char *)(screen->framebuffer + screen->height*screen->width *(screen->bpp/8));
-	
+		char * pixelPosWrite = (char*)((uint64_t)screen->framebuffer);
+		char * pixelPosRead = (char*)(screen->framebuffer + (uint64_t)(ammount* screen->width)*(screen->bpp/8));
+		char * maxPos = (char *)(screen->framebuffer + (uint64_t)screen->height*screen->width *(screen->bpp/8));
+
 		while(pixelPosWrite < maxPos){
 			if(pixelPosRead < maxPos) {
 				*(pixelPosWrite+2) = *(pixelPosRead+2);
@@ -96,12 +96,12 @@ struct vesa_mode {
 			pixelPosWrite += screen->bpp/8;
 			pixelPosRead += screen->bpp/8;
 		}
-		
+
 	}
 
 	void replaceColor(struct RGB colorOld, struct RGB colorNew) {
-		char * pixelPos = (char*)(screen->framebuffer);
-		char * maxPos = (char *)(screen->framebuffer + screen->height*screen->width *(screen->bpp/8));
+		char * pixelPos = (char*)((uint64_t)screen->framebuffer);
+		char * maxPos = (char *)(screen->framebuffer + (uint64_t)screen->height*screen->width *(screen->bpp/8));
 		while(pixelPos < maxPos ){
 			if(*(pixelPos+2) == colorOld.red && *(pixelPos+1) == colorOld.green && *(pixelPos) == colorOld.blue) {
 				*(pixelPos+2) = colorNew.red;

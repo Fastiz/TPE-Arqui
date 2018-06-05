@@ -3,7 +3,7 @@
 
 #include <font.h>
 
-unsigned char __font_bitmap__[] = {
+ char __font_bitmap__[] = {
 //   0 $00 'char0'
 //	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
@@ -3480,6 +3480,6 @@ unsigned char __font_bitmap__[] = {
 	________,
 };
 
-char * getCharPos(char c) {
+ char * getCharPos(char c) {
 	return __font_bitmap__ + (16 * (c-31));
 }

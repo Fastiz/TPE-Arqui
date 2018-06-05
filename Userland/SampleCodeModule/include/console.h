@@ -7,3 +7,4 @@ void stdin();
 void consoleLoop();
 void init();
 void changeTheme();
+void resetConsole();

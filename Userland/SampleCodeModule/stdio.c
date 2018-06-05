@@ -8,7 +8,7 @@ void printf(char* format, ...){
   va_start(arg, format);
   int i;
   char* s;
-  for(format; *format != 0; format++){
+  for(; *format != 0; format++){
     if(*format == '%'){
       format++;
       switch(*format){
@@ -76,7 +76,7 @@ int scanf(char* format, ...){
             case 's':
               do{
                 *(char *)loadValue = c;
-                loadValue++; 
+                loadValue++;
               }while((c = getchar()) != ' ' && c != '\n' && c != 0);
               break;
         }

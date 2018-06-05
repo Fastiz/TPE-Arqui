@@ -1,3 +1,5 @@
+#include <std_buffers.h>
+
 #define BUFFER_SIZE 1024
 
 struct Buffer {
@@ -40,7 +42,7 @@ int writeCharBuffer(int index, char character) {
 	return 0;
 }
 
-int writeIntBuffer(int index, int value,int base) {
+int writeIntBuffer(int index, uint64_t value,int base) {
 	if(index > 2)
 		return -1;
 	int remainder;
@@ -56,6 +58,7 @@ int writeIntBuffer(int index, int value,int base) {
 	while (value /= base);
 	for(i = digits - 1; i >= 0; i--)
 		writeCharBuffer(index,number[i]);
+  return 0;
 }
 
 int writeStrBuffer(int index, char * str) {

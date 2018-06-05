@@ -14,8 +14,8 @@ static void error();
 
 void commandDispatcher(char * commandLine) {
 	int i,j;
-	unsigned char command[MAX_SIZE] = {0};
-	unsigned char parameter[MAX_SIZE] = {0};
+	 char command[MAX_SIZE] = {0};
+	 char parameter[MAX_SIZE] = {0};
 	int readingCommand = 1;
 	for(i = 0, j = 0; commandLine[i] != 0 && i < MAX_SIZE - 1 && j < MAX_SIZE - 1; i++){
 		if(commandLine[i] == ' ' && readingCommand){
@@ -52,15 +52,15 @@ void commandDispatcher(char * commandLine) {
 	}
 }
 static void man(char * str) {
-	unsigned char * invalidOp = "invOp - Tests invalid operation exception.";
-	unsigned char * div0 = "div0 - Tests division by zero exception.";
-	unsigned char * echo = "echo - Prints string in standard output.";
-	unsigned char * time = "time - Displays time in hour:minutes:seconds in standard output.";
-	unsigned char * clock = "clock - Displays a digital clock in hour:minutes:seconds.";
-	unsigned char * clear = "clear - Clear the screen";
-	unsigned char * frog = "frog - Displays a frog";
-	unsigned char * theme = "theme - Change console theme. Parameters: text, consoletext, error, background.";
-	
+	 char * invalidOp = "invOp - Tests invalid operation exception.";
+	 char * div0 = "div0 - Tests division by zero exception.";
+	 char * echo = "echo - Prints string in standard output.";
+	 char * time = "time - Displays time in hour:minutes:seconds in standard output.";
+	 char * clock = "clock - Displays a digital clock in hour:minutes:seconds.";
+	 char * clear = "clear - Clear the screen";
+	 char * frog = "frog - Displays a frog";
+	 char * theme = "theme - Change console theme. Parameters: text, consoletext, error, background.";
+
 	if(*str == 0){
 		printf("This is the command mannual. The following commands are:\n\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s",invalidOp,div0,echo,time,clock,clear,frog,theme);
 	}

@@ -13,7 +13,7 @@ int strcmp(char * str1, char* str2) {
 char * intToChar(int value,int base,char * buffer) {
 	char *p = buffer;
 	char *p1, *p2;
-	uint32_t digits = 0;
+	char* digits = 0;
 
 	//Calculate characters for each digit
 	do
@@ -43,7 +43,7 @@ char * intToChar(int value,int base,char * buffer) {
 }
 
 void clockString(char * clockTime){
-		int secondsInt = _syscall(_readTime,0);
+				int secondsInt = _syscall(_readTime,0);
         int minutesInt =_syscall(_readTime,1);
         int hourInt =_syscall(_readTime,2);
 
@@ -66,5 +66,5 @@ void clockString(char * clockTime){
 
         clockTime[2] = ':';
         clockTime[5] = ':';
-		clockTime[8] = '\0';
+				clockTime[8] = '\0';
 }

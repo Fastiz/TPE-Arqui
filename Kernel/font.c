@@ -3480,6 +3480,6 @@ unsigned char __font_bitmap__[] = {
 	________,
 };
 
-char * getCharPos(char c) {
+unsigned char * getCharPos(char c) {
 	return __font_bitmap__ + (16 * (c-31));
 }

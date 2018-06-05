@@ -6,7 +6,7 @@
 #include <lib.h>
 
 
-typedef (*systemCall)();
+typedef uint64_t(*systemCall)();
 
 systemCall sysCalls[] = { 0, 0, 0,
   (systemCall)_writePixel,

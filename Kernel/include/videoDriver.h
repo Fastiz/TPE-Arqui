@@ -9,3 +9,4 @@ void replaceColor(struct RGB colorOld, struct RGB colorNew);
 void backupScreen();
 void restoreScreen();
 void writeBlock(uint64_t width, uint64_t height, struct RGB color, uint64_t sizeX,uint64_t sizeY);
+	void fillScreen(struct RGB color);

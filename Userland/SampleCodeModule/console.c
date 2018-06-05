@@ -4,6 +4,7 @@
 #include "stdio.h"
 #include "commandDispatcher.h"
 #include "font.h"
+#include "stdlib.h"
 
 #define HORIZONTAL_MARGIN 2
 #define VERTICAL_MARGIN 0
@@ -69,7 +70,7 @@ void checkSpace(){
 
 void stdin(){
   bufferIndex=0;
-  char * text = consoleName;
+  const char * text = consoleName;
   while(*text){
     writeChar(*text, linePosition*letterSize*(CHAR_WIDTH + 1), line*letterSize*CHAR_HEIGHT, consoleColors[consoleIndex], letterSize);
     linePosition++;
@@ -84,7 +85,7 @@ void stdin(){
           linePosition=(MAX_LINE_POSITION / ((CHAR_WIDTH + 1) * letterSize)) - 1;
         }else
           linePosition--;
-        
+
         bufferIndex--;
         buffer[bufferIndex] = 0;
         _syscall(_writeBlock,(linePosition)*letterSize*(CHAR_WIDTH + 1), line*letterSize*CHAR_HEIGHT, consoleColors[consoleBackgroundIndex], (CHAR_WIDTH + 1)*letterSize, CHAR_HEIGHT*letterSize);
@@ -107,7 +108,7 @@ void stdin(){
 void stdout(){
   int flag=0;
   char c;
-  while(c=_syscall(_read, 1)){
+  while((c=_syscall(_read, 1))!=0){
     flag=1;
     if(c == '\n'){
       newLine();
@@ -124,7 +125,7 @@ void stdout(){
 void stderr(){
   int flag;
   char c;
-  while(c=_syscall(_read, 2)){
+  while((c=_syscall(_read, 2))!=0){
     flag=1;
     if(c == '\n'){
       newLine();
@@ -157,7 +158,7 @@ void changeTheme(char * param) {
   int c4 = consoleIndex;
 
   int aux = c1;
-  
+
   if(strcmp(param, "background")) {
       c1 = c2;
       c2 = aux;
@@ -186,7 +187,7 @@ void changeTheme(char * param) {
       c1 = 0;
   }
 
-  if(strcmp(param, "background")) 
+  if(strcmp(param, "background"))
     consoleBackgroundIndex = c1;
   else if(strcmp(param, "error"))
     errIndex = c1;

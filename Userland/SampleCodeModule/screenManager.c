@@ -8,7 +8,7 @@ void writeCharWithBackground(char c, uint64_t x, uint64_t y, struct RGB color, s
 	if(c < 32 || c > 255) //falta ver el limite de c, no es 255 en esta fuente
 		return;
 
-	char * posOfChar = getCharPos(c);
+	 char * posOfChar = getCharPos(c);
 	for(int j = 0; j < CHAR_HEIGHT ; j++) {
 		for(int i = 0, k = 128; i < CHAR_WIDTH; i++, k/=2){
 			if(k & posOfChar[j])
@@ -27,7 +27,7 @@ void writeChar(char c, uint64_t x, uint64_t y, struct RGB color, uint64_t size){
 		y+= CHAR_HEIGHT * size;
 		x = 0;
 	}
-	char * posOfChar = getCharPos(c);
+	 char * posOfChar = getCharPos(c);
 	for(int j = 0; j < CHAR_HEIGHT ; j++) {
 		for(int i = 0, k = 128; i < CHAR_WIDTH; i++, k/=2){
 			if(k & posOfChar[j])

@@ -262,4 +262,4 @@
 #define XXXXXXXX 0xFF
 	/// @}
 
-char * getCharPos(char c);
+unsigned char * getCharPos(char c);
