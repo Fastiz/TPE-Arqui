@@ -186,22 +186,20 @@ void changeTheme(int type) {
   }
 
   switch(type) {
+    case 0: {
+      inOutIndex = c1;
+      break;
+    }
     case 1 : {
-      int aux = c1;
-      c1 = c2;
-      c2 = aux;
+      consoleBackgroundIndex = c1;
       break;
     }
     case 2 : {
-      int aux = c2;
-      c2 = c3;
-      c3 = aux;
+      errIndex = c1;
       break;
     }
     case 3 : {
-      int aux = c3;
-      c3 = c4;
-      c4 = aux;
+      consoleIndex = c1;
       break;
     }
   }
