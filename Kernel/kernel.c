@@ -83,15 +83,14 @@ void * initializeKernelBinary()
 	ncPrint("[Done]");
 	ncNewline();
 	ncNewline();
+	setUpBuffers();
 	return getStackBase();
 }
 
 int main()
 {
-	load_idt();
 
-	struct RGB color1={255,0,0}, color2={0,255,0}, color3={0,0,255}, black={0,0,0};
-	writePixel(0,0,color1);
+	load_idt();
 	
 	ncPrint("[Kernel Main]");
 	ncNewline();
@@ -99,7 +98,7 @@ int main()
 	ncPrintHex((uint64_t)sampleCodeModuleAddress);
 	ncNewline();
 	ncPrint("  Calling the sample code module returned: ");
-	ncPrintHex(((EntryPoint)sampleCodeModuleAddress)());
+	((EntryPoint)sampleCodeModuleAddress)();
 	ncNewline();
 	ncNewline();
 
@@ -111,13 +110,6 @@ int main()
 	ncNewline();
 
 	ncPrint("[Finished]");
-
-	setUpBuffers();
-	//pintar una linea
 	
-	int i,j,k;
-
-	int true = 1;
-	while(true){}
 	return 0;
 }
