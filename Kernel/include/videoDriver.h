@@ -1,5 +1,9 @@
 #include <stdint.h>
 #include <lib.h>
+
+#ifndef VIDEO_DRIVER_H
+#define VIDEO_DRIVER_H
+
 uint64_t getWidth();
 uint64_t getHeight();
 void writePixel(uint64_t width, uint64_t height, struct RGB color);
@@ -10,3 +14,5 @@ void backupScreen();
 void restoreScreen();
 void writeBlock(uint64_t width, uint64_t height, struct RGB color, uint64_t sizeX,uint64_t sizeY);
 	void fillScreen(struct RGB color);
+
+#endif

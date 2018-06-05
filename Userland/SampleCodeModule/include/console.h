@@ -1,3 +1,6 @@
+#ifndef CONSOLE_H
+#define CONSOLE_H
+
 void console();
 void readStdin();
 void newLine();
@@ -8,3 +11,5 @@ void consoleLoop();
 void init();
 void changeTheme();
 void resetConsole();
+
+#endif

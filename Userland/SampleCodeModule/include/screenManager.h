@@ -1,5 +1,8 @@
 #include <stdint.h>
 
+#ifndef SCREEN_MANAGER_H
+#define SCREEN_MANAGER_H
+
 struct RGB {
 	char red;
 	char green;
@@ -14,3 +17,5 @@ void printString(char * string, struct RGB color);
 void clearScreen();
 void writeInt(uint64_t num, uint64_t x, uint64_t y, struct RGB color, struct RGB background, uint64_t size);
 void writeString(char* string, uint64_t x, uint64_t y, struct RGB color, struct RGB background, uint64_t size);
+
+#endif

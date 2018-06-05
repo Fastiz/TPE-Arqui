@@ -1,4 +1,6 @@
 #include <stdint.h>
+#ifndef SYSCALL_H
+#define SYSCALL_H
 
 #define _writePixel 3
 #define _readPixel 4
@@ -16,3 +18,5 @@
 #define _writeBlock 16
 
 uint64_t _syscall(uint64_t, ...);
+
+#endif

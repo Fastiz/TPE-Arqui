@@ -1,3 +1,7 @@
+#ifndef FONT_H
+#define FONT_H
+
+
 // (c) 2009, 2010 Lutz Sammer, License: AGPLv3
 
 #define charWidth 8
@@ -263,3 +267,5 @@
 	/// @}
 
 unsigned char * getCharPos(char c);
+
+#endif

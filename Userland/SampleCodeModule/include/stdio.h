@@ -1,3 +1,6 @@
+#ifndef STDIO_H
+#define STDIO_H
+
 #define _stdin 0
 #define _stdout 1
 #define _stderr 2
@@ -13,3 +16,5 @@ char getchar();
 void write(char c, int dest);
 
 char read(int dest);
+
+#endif
