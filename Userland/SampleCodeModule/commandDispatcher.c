@@ -46,7 +46,7 @@ void commandDispatcher(char * commandLine) {
 	else if(strcmp(command,"clear")==1)
 		resetConsole();
 	else if(strcmp(command,"theme")==1)
-		changeTheme(0);
+		changeTheme(parameter);
 	else{
 		error();
 	}
@@ -59,7 +59,7 @@ static void man(char * str) {
 	unsigned char * clock = "clock - Displays a digital clock in hour:minutes:seconds.";
 	unsigned char * clear = "clear - Clear the screen";
 	unsigned char * frog = "frog - Displays a frog";
-	unsigned char * theme = "theme - Change console theme";
+	unsigned char * theme = "theme - Change console theme. Parameters: text, consoletext, error, background.";
 	
 	if(*str == 0){
 		printf("This is the command mannual. The following commands are:\n\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s",invalidOp,div0,echo,time,clock,clear,frog,theme);

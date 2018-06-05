@@ -45,7 +45,6 @@ void init(){
   windowHeight = _syscall(_getScreenHeight);
   _syscall(_fillScreen,consoleColors[consoleBackgroundIndex]);
   printf("Welcome to MikeOS. To get started, type man to check the different programs.");
-	printf("%d\n" "%d",_syscall(_getScreenWidth), _syscall(_getScreenHeight));
 }
 
 void consoleLoop(){
@@ -151,32 +150,34 @@ void newLine(){
   checkSpace();
 }
 
-void changeTheme(int type) {
+void changeTheme(char * param) {
   int c1 = inOutIndex;
   int c2 = consoleBackgroundIndex;
   int c3 = errIndex;
   int c4 = consoleIndex;
 
-  switch(type) {
-    case 1 : {
-      int aux = c1;
+  int aux = c1;
+  
+  if(strcmp(param, "background")) {
       c1 = c2;
       c2 = aux;
-      break;
-    }
-    case 2 : {
-      int aux = c2;
-      c2 = c3;
-      c3 = aux;
-      break;
-    }
-    case 3 : {
-      int aux = c3;
-      c3 = c4;
-      c4 = aux;
-      break;
-    }
   }
+  else if(strcmp(param, "error")){
+    c1 = c3;
+    c3 = aux;
+  }
+  else if(strcmp(param, "consoletext")){
+    c1 = c4;
+    c4 = aux;
+  }
+  else if(strcmp(param, "text")== 0) {
+    checkSpace();
+    writeString("Invalid parameter.", linePosition*letterSize*(CHAR_WIDTH + 1), line*letterSize*CHAR_HEIGHT, consoleColors[errIndex],consoleColors[consoleBackgroundIndex], letterSize);
+    linePosition = HORIZONTAL_MARGIN;
+    line++;
+    return;
+  }
+
   int oldIndex = c1;
   c1++;
   while(c1 == c2 || c1 == c3 || c1 == c4 || c1 >= NUM_OF_COLORS) {
@@ -185,24 +186,14 @@ void changeTheme(int type) {
       c1 = 0;
   }
 
-  switch(type) {
-    case 0: {
-      inOutIndex = c1;
-      break;
-    }
-    case 1 : {
-      consoleBackgroundIndex = c1;
-      break;
-    }
-    case 2 : {
-      errIndex = c1;
-      break;
-    }
-    case 3 : {
-      consoleIndex = c1;
-      break;
-    }
-  }
-  _syscall(_replaceColor, consoleColors[oldIndex], consoleColors[c1]);
+  if(strcmp(param, "background")) 
+    consoleBackgroundIndex = c1;
+  else if(strcmp(param, "error"))
+    errIndex = c1;
+  else if(strcmp(param, "consoletext"))
+    consoleIndex = c1;
+  else if(strcmp(param, "text"))
+    inOutIndex = c1;
 
+  _syscall(_replaceColor, consoleColors[oldIndex], consoleColors[c1]);
 }
