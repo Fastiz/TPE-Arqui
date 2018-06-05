@@ -36,14 +36,6 @@ void writeChar(char c, uint64_t x, uint64_t y, struct RGB color, uint64_t size){
 	}
 }
 
-/*void setSize(char s) {
-	offset = s;
-}*/
-
-/*void putChar(char c, struct RGB color) {
-	writeChar(c, currentX,currentY, color, offset);
-}*/
-
 void writeString(char* string, uint64_t x, uint64_t y, struct RGB color, struct RGB background, uint64_t size){
 	while(*string != 0){
 		if(x + (CHAR_WIDTH * size) >= _syscall(_getScreenWidth)){
@@ -57,11 +49,6 @@ void writeString(char* string, uint64_t x, uint64_t y, struct RGB color, struct 
 		string++;
 	}
 }
-
-//solo imprime string
-/*void printString(char * string, struct RGB color) {
-	writeString(string,currentX,currentY, color,offset);
-}*/
 
 void clearScreen() {
 	struct RGB black={0,0,0};

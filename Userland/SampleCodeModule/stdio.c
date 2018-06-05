@@ -1,6 +1,6 @@
-#include "syscall.h"
-#include "stdio.h"
-#include "stdlib.h"
+#include <syscall.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <stdarg.h>
 
 void printf(char* format, ...){

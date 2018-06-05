@@ -1,9 +1,9 @@
-#include "syscall.h"
-#include "stdlib.h"
-#include "graphicClock.h"
-#include "stdio.h"
-#include "console.h"
-#include "exceptionTester.h"
+#include <syscall.h>
+#include <stdlib.h>
+#include <graphicClock.h>
+#include <stdio.h>
+#include <console.h>
+#include <exceptionTester.h>
 
 #define MAX_SIZE 255
 
@@ -45,6 +45,8 @@ void commandDispatcher(char * commandLine) {
 		drawClock();
 	else if(strcmp(command,"clear")==1)
 		resetConsole();
+	else if(strcmp(command,"theme")==1)
+		changeTheme(0);
 	else{
 		error();
 	}
@@ -56,9 +58,11 @@ static void man(char * str) {
 	unsigned char * time = "time - Displays time in hour:minutes:seconds in standard output.";
 	unsigned char * clock = "clock - Displays a digital clock in hour:minutes:seconds.";
 	unsigned char * clear = "clear - Clear the screen";
+	unsigned char * frog = "frog - Displays a frog";
+	unsigned char * theme = "theme - Change console theme";
 	
 	if(*str == 0){
-		printf("This is the command mannual. The following commands are:\n\n%s\n%s\n%s\n%s\n%s\n%s",invalidOp,div0,echo,time,clock,clear);
+		printf("This is the command mannual. The following commands are:\n\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s",invalidOp,div0,echo,time,clock,clear,frog,theme);
 	}
 	else{
 		if(strcmp(str,"echo") == 1)
@@ -75,6 +79,10 @@ static void man(char * str) {
 			printf(echo);
 		else if(strcmp(str,"clear") == 1)
 			printf(clear);
+		else if(strcmp(str,"frog") == 1)
+			printf(frog);
+		else if(strcmp(str,"theme") == 1)
+			printf(theme);
 		else
 			error();
 	}

@@ -1,12 +1,10 @@
-#include "syscall.h"
-#include "screenManager.h"
-#include "console.h"
+#include <console.h>
 
 static int var1 = 0;
 static int var2 = 0;
 
 int main() {
-	
+
 	console();
 
 	//Test if BSS is properly set up
