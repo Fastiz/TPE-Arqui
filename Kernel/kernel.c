@@ -9,6 +9,7 @@
 #include <syscallDispatcher.h>
 #include <interrupts.h>
 #include <tests.h>
+#include "beep.h"
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -90,7 +91,7 @@ void * initializeKernelBinary()
 int main()
 {
 	load_idt();
-	
+
 	ncPrint("[Kernel Main]");
 	ncNewline();
 	ncPrint("  Sample code module at 0x");
@@ -111,6 +112,8 @@ int main()
 	ncPrint("[Finished]");
 
 	setUpBuffers();
+
+	beep();
 
 	int true = 1;
 	while(true){}
