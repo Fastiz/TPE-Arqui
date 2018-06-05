@@ -20,7 +20,7 @@
 
 
 char buffer[20000];
-int bufferIndex =0;
+int bufferIndex = 0;
 
 static const char* consoleName = "Consola\\::";
 

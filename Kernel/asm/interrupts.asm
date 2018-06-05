@@ -87,7 +87,10 @@ SECTION .text
 	call exceptionDispatcher
 	popState
 
-	mov qword [rsp], sampleCodeModule; dirección del sampleCodeModule para retornar de vuelta.
+	mov rdi, [instructionPointerBackup]
+	mov qword [rsp], rdi; dirección del sampleCodeModule para retornar de vuelta.
+	mov rdi, [stackPointerBackup]
+	mov qword[rsp + 3*8], rdi
 	iretq
 
 %endmacro

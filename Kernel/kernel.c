@@ -8,7 +8,6 @@
 #include <videoDriver.h>
 #include <syscallDispatcher.h>
 #include <interrupts.h>
-#include <tests.h>
 #include "beep.h"
 
 extern uint8_t text;
