@@ -15,7 +15,11 @@ GLOBAL _irq03Handler
 GLOBAL _irq04Handler
 GLOBAL _irq05Handler
 
+GLOBAL getStackPointer
 GLOBAL _syscallHandler
+
+GLOBAL instructionPointerBackup
+GLOBAL stackPointerBackup
 
 EXTERN exceptionDispatcher
 EXTERN irqDispatcher
@@ -75,15 +79,16 @@ SECTION .text
 %endmacro
 
 %macro exceptionHandler 1
-	pop rsi ; dirección donde ocurrió la excepción.
+	mov rsi,[rsp] ; dirección donde ocurrió la excepción.
 	pushState
 
 	mov rdi, %1 ; pasaje de parametro
-	mov rdx, rsp; pointer al stack donde estan pusheados los registros
+	mov rdx, rsp; pointer al stack donde estan pusheados los registros.
 	call exceptionDispatcher
 	popState
 
-	jmp main
+	mov qword [rsp], sampleCodeModule; dirección del sampleCodeModule para retornar de vuelta.
+	iretq
 
 %endmacro
 
@@ -176,6 +181,11 @@ haltcpu:
 	hlt
 	ret
 
+getStackPointer:
+	mov rax, rsp
+	ret
 
 SECTION .bss
-	aux resq 1
+	sampleCodeModule equ 0x400000
+	stackPointerBackup resq 1
+	instructionPointerBackup resq 1
