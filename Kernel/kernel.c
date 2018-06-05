@@ -89,9 +89,6 @@ void * initializeKernelBinary()
 int main()
 {
 	load_idt();
-
-	struct RGB color1={255,0,0}, color2={0,255,0}, color3={0,0,255}, black={0,0,0};
-	writePixel(0,0,color1);
 	
 	ncPrint("[Kernel Main]");
 	ncNewline();
@@ -113,9 +110,6 @@ int main()
 	ncPrint("[Finished]");
 
 	setUpBuffers();
-	//pintar una linea
-	
-	int i,j,k;
 
 	int true = 1;
 	while(true){}

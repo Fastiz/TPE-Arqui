@@ -13,5 +13,6 @@
 #define _backupScreen 13
 #define _restoreScreen 14
 #define _fillScreen 15
+#define _writeBlock 16
 
 _syscall();

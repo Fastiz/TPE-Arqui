@@ -19,25 +19,25 @@ struct RGB helpColor = {190,180,220};
 struct RGB colors[] = {{0,0,0},{255,0,0},{0,255,0},{0,0,255},{0,255,255},{255,255,0}};
 
 void writeSettings() {
-    if((MARGIN * 2) + ((charWidth+1)*helpLetterSize*(LARGEST_MESSAGE-1)) + (charWidth*size) >= _syscall(_getScreenWidth))
+    if((MARGIN * 2) + ((CHAR_WIDTH+1)*helpLetterSize*(LARGEST_MESSAGE-1)) + (CHAR_WIDTH*size) >= _syscall(_getScreenWidth))
         helpLetterSize = 1;
     _syscall(_fillScreen, colors[backgroundColorIndex]);
     writeString("[C]hange numbers color",MARGIN,helpStartRow,helpColor,colors[backgroundColorIndex], helpLetterSize);
-    writeString("[R]educe size",MARGIN,helpStartRow+(helpLetterSize*(charHeight +1)),helpColor,colors[backgroundColorIndex], helpLetterSize);
-    writeString("[I]ncrement size",MARGIN,helpStartRow+(2*(helpLetterSize*(charHeight +1))),helpColor,colors[backgroundColorIndex], helpLetterSize);
-    writeString("[B]ackground color",MARGIN,helpStartRow+(3*(helpLetterSize*(charHeight +1))),helpColor,colors[backgroundColorIndex], helpLetterSize);
-    writeString("[Q]uit clock",MARGIN,helpStartRow+(4*(helpLetterSize*(charHeight +1))),helpColor,colors[backgroundColorIndex], helpLetterSize);
+    writeString("[R]educe size",MARGIN,helpStartRow+(helpLetterSize*(CHAR_HEIGHT +1)),helpColor,colors[backgroundColorIndex], helpLetterSize);
+    writeString("[I]ncrement size",MARGIN,helpStartRow+(2*(helpLetterSize*(CHAR_HEIGHT +1))),helpColor,colors[backgroundColorIndex], helpLetterSize);
+    writeString("[B]ackground color",MARGIN,helpStartRow+(3*(helpLetterSize*(CHAR_HEIGHT +1))),helpColor,colors[backgroundColorIndex], helpLetterSize);
+    writeString("[Q]uit clock",MARGIN,helpStartRow+(4*(helpLetterSize*(CHAR_HEIGHT +1))),helpColor,colors[backgroundColorIndex], helpLetterSize);
 }
 
 void drawClock(){
 
     _syscall(_backupScreen);
     char c;
-    while((MARGIN * 2) + ((charWidth+1)*size*7) + (charWidth*size) >= _syscall(_getScreenWidth))
+    while((MARGIN * 2) + ((CHAR_WIDTH+1)*size*7) + (CHAR_WIDTH*size) >= _syscall(_getScreenWidth))
         size--;
     
-    helpStartRow = _syscall(_getScreenHeight) - MARGIN - ((charHeight + 1) * helpLetterSize * 5);
-    while(helpStartRow < MARGIN + (charHeight) * size)
+    helpStartRow = _syscall(_getScreenHeight) - MARGIN - ((CHAR_HEIGHT + 1) * helpLetterSize * 5);
+    while(helpStartRow < MARGIN + (CHAR_HEIGHT) * size)
         size--;
 
     int maxSize = size;
@@ -53,14 +53,14 @@ void drawClock(){
             case 'i':
                 if(size != maxSize) {
                     size++;
-                    writeBlock(0,0,colors[backgroundColorIndex],(MARGIN * 2) + ((charWidth+1)*maxSize*7) + (charWidth*maxSize), (charHeight * maxSize) + MARGIN);
+                    _syscall(_writeBlock,0,0,colors[backgroundColorIndex],(MARGIN * 2) + ((CHAR_WIDTH+1)*maxSize*7) + (CHAR_WIDTH*maxSize), (CHAR_HEIGHT * maxSize) + MARGIN);
                 }
                 break;
 
             case 'r': 
                 if(size - 1 != 0){
                     size--;
-                    writeBlock(0,0,colors[backgroundColorIndex],(MARGIN * 2) + ((charWidth+1)*maxSize*7) + (charWidth*maxSize), (charHeight * maxSize) + MARGIN);
+                    _syscall(_writeBlock,0,0,colors[backgroundColorIndex],(MARGIN * 2) + ((CHAR_WIDTH+1)*maxSize*7) + (CHAR_WIDTH*maxSize), (CHAR_HEIGHT * maxSize) + MARGIN);
                 }
                 break;
             
@@ -92,7 +92,7 @@ void drawClock(){
 
         for(int i = 0; i < 8; i++) {
             writeCharWithBackground(clockTime[i], posX,posY,colors[numbersColor], colors[backgroundColorIndex], size);
-            posX += (charWidth + 1) * size;
+            posX += (CHAR_WIDTH + 1) * size;
         }
     }
     _syscall(_restoreScreen);

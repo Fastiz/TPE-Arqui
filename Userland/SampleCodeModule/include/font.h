@@ -1,7 +1,7 @@
 // (c) 2009, 2010 Lutz Sammer, License: AGPLv3
 
-#define charWidth 8
-#define charHeight 16
+#define CHAR_WIDTH 8
+#define CHAR_HEIGHT 16
 
 	/// @{ defines to have human readable font files
 #define ________ 0x00

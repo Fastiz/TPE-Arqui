@@ -147,14 +147,21 @@ _irq05Handler:
 	irqHandlerMaster 5
 
 _syscallHandler:
+
 	push rbp
 	mov rbp, rsp
 
-	mov rdi, rax
-	mov rsi, rbx
+	push r8
 	push rdx
-	mov rdx, rcx
+	push rsi
+	push rdi
+
+	mov rdi, rax
+	pop rsi
+	pop rdx
 	pop rcx
+	mov r8, r10
+	pop r9
 	call syscallDispatcher
 	leave
 	iretq

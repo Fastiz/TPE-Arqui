@@ -3,12 +3,11 @@
 #include "console.h"
 #include "stdio.h"
 #include "commandDispatcher.h"
+#include "font.h"
 
-#define ROW_HEIGHT 16
 #define HORIZONTAL_MARGIN 2
 #define VERTICAL_MARGIN 0
-#define MAX_LINE_POSITION (windowWidth-(HORIZONTAL_MARGIN*LETTER_SPACE))
-#define LETTER_SPACE 10
+#define MAX_LINE_POSITION (windowWidth-(HORIZONTAL_MARGIN*(CHAR_WIDTH + 1)))
 
 char buffer[20000];
 int bufferIndex =0;
@@ -31,7 +30,6 @@ void console(){
   consoleLoop();
 }
 
-//void newLine(){}
 
 void init(){
   windowWidth = _syscall(_getScreenWidth);
@@ -51,10 +49,10 @@ void consoleLoop(){
 
 
 void checkSpace(){
-  if((linePosition + 1) * LETTER_SPACE * letterSize > MAX_LINE_POSITION)
+  if((linePosition + 1) * (CHAR_WIDTH + 1) * letterSize > MAX_LINE_POSITION)
     newLine();
-  else if(line*letterSize*ROW_HEIGHT >= windowHeight-VERTICAL_MARGIN*ROW_HEIGHT*letterSize){
-    _syscall(_movePixelsUp, letterSize*ROW_HEIGHT, consoleBackground);
+  else if(line*letterSize*CHAR_HEIGHT >= windowHeight-VERTICAL_MARGIN*CHAR_HEIGHT*letterSize){
+    _syscall(_movePixelsUp, letterSize*CHAR_HEIGHT, consoleBackground);
     line--;
   }
 }
@@ -63,7 +61,7 @@ void stdin(){
   bufferIndex=0;
   char * text = consoleName;
   while(*text){
-    writeChar(*text, linePosition*letterSize*LETTER_SPACE, line*letterSize*ROW_HEIGHT, consoleColor, letterSize);
+    writeChar(*text, linePosition*letterSize*(CHAR_WIDTH + 1), line*letterSize*CHAR_HEIGHT, consoleColor, letterSize);
     linePosition++;
     text++;
   }
@@ -73,7 +71,7 @@ void stdin(){
       if(bufferIndex!=0){
         if(linePosition <= HORIZONTAL_MARGIN){
           line--;
-          linePosition=(MAX_LINE_POSITION / (LETTER_SPACE * letterSize)) - 1;
+          linePosition=(MAX_LINE_POSITION / ((CHAR_WIDTH + 1) * letterSize)) - 1;
         }else
           linePosition--;
         
@@ -83,12 +81,12 @@ void stdin(){
 	      ENTONCES NUNCA ENCUENTRA EL COMANDO, PORQUE EL STRING NO TIENE UN 0 AL FINAL (cuando los compara). OTRA OPCION ES
 	      CAMBIAR EL && POR UN || EN LA QUE COMPARA STRINGS*/
         buffer[bufferIndex] = 0;
-        writeBlock((linePosition)*letterSize*LETTER_SPACE, line*letterSize*ROW_HEIGHT, consoleBackground, LETTER_SPACE*letterSize, ROW_HEIGHT*letterSize);
+        _syscall(_writeBlock,(linePosition)*letterSize*(CHAR_WIDTH + 1), line*letterSize*CHAR_HEIGHT, consoleBackground, (CHAR_WIDTH + 1)*letterSize, CHAR_HEIGHT*letterSize);
       }
     }else if(c){
       checkSpace();
       buffer[bufferIndex++] = c;
-      writeChar(c, linePosition*letterSize*LETTER_SPACE, line*letterSize*ROW_HEIGHT, STDINColor, letterSize);
+      writeChar(c, linePosition*letterSize*(CHAR_WIDTH + 1), line*letterSize*CHAR_HEIGHT, STDINColor, letterSize);
       linePosition++;
     }
   }
@@ -109,7 +107,7 @@ void stdout(){
       newLine();
     }else{
       checkSpace();
-      writeChar(c, linePosition*letterSize*LETTER_SPACE, line*letterSize*ROW_HEIGHT, STDOUTColor, letterSize);
+      writeChar(c, linePosition*letterSize*(CHAR_WIDTH + 1), line*letterSize*CHAR_HEIGHT, STDOUTColor, letterSize);
       linePosition++;
     }
   }
@@ -126,7 +124,7 @@ void stderr(){
       newLine();
     }else{
       checkSpace();
-      writeChar(c, linePosition*letterSize*LETTER_SPACE, line*letterSize*ROW_HEIGHT, STDERRColor, letterSize);
+      writeChar(c, linePosition*letterSize*(CHAR_WIDTH + 1), line*letterSize*CHAR_HEIGHT, STDERRColor, letterSize);
       linePosition++;
     }
   }

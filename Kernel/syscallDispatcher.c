@@ -21,15 +21,20 @@ systemCall sysCalls[] = { 0, 0, 0,
   (systemCall)_replaceColor,
   (systemCall) _backupScreen,
   (systemCall) _restoreScreen,
-  (systemCall) _fillScreen
+  (systemCall) _fillScreen,
+  (systemCall) _writeBlock
 };
 
-void syscallDispatcher(uint64_t index, uint64_t a, uint64_t b, uint64_t c){
-  sysCalls[index](a, b, c);
+void syscallDispatcher(uint64_t index, uint64_t a, uint64_t b, uint64_t c, uint64_t d, uint64_t e){
+  sysCalls[index](a, b, c, d , e);
 }
 
 void _writePixel(uint64_t width, uint64_t height, struct RGB color){
   writePixel(width, height, color);
+}
+
+void _writeBlock(uint64_t width, uint64_t height, struct RGB color, uint64_t sizeX,uint64_t sizeY) {
+  writeBlock(width,height,color,sizeX,sizeY);
 }
 
 void _readPixel(uint64_t width, uint64_t height, struct RGB * color){

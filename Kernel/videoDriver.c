@@ -134,3 +134,11 @@ struct vesa_mode {
 				writePixel(i,j,color);
 		}
 	}
+
+	void writeBlock(uint64_t width, uint64_t height, struct RGB color, uint64_t sizeX,uint64_t sizeY){
+		for(int i = width ; i < width + sizeX; i++) {
+			for(int j = height; j < height + sizeY; j++) {
+				writePixel(i,j,color);
+			}
+		}
+	}
