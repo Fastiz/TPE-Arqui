@@ -8,6 +8,7 @@
 #include <videoDriver.h>
 #include <syscallDispatcher.h>
 #include <interrupts.h>
+#include <tests.h>
 #include "beep.h"
 
 extern uint8_t text;
@@ -16,6 +17,9 @@ extern uint8_t data;
 extern uint8_t bss;
 extern uint8_t endOfKernelBinary;
 extern uint8_t endOfKernel;
+
+extern void * instructionPointerBackup;
+extern void * stackPointerBackup;
 
 static const uint64_t PageSize = 0x1000;
 
@@ -90,31 +94,14 @@ void * initializeKernelBinary()
 int main()
 {
 	load_idt();
-
-	ncPrint("[Kernel Main]");
-	ncNewline();
-	ncPrint("  Sample code module at 0x");
-	ncPrintHex((uint64_t)sampleCodeModuleAddress);
-	ncNewline();
-	ncPrint("  Calling the sample code module returned: ");
-	((EntryPoint)sampleCodeModuleAddress)();
-	ncNewline();
-	ncNewline();
-
-	ncPrint("  Sample data module at 0x");
-	ncPrintHex((uint64_t)sampleDataModuleAddress);
-	ncNewline();
-	ncPrint("  Sample data module contents: ");
-	ncPrint((char*)sampleDataModuleAddress);
-	ncNewline();
-
-	ncPrint("[Finished]");
-
 	setUpBuffers();
 
 	beep();
+	void (*address)();
+	address = sampleCodeModuleAddress;
+	instructionPointerBackup = address;
+	stackPointerBackup = getStackPointer() + 2*8;
+	address();
 
-	int true = 1;
-	while(true);
 	return 0;
 }
