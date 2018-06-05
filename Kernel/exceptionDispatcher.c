@@ -7,15 +7,25 @@
 typedef void (* exception_ptr)(uint64_t * instructionPointer, uint64_t * stackPointer);
 
 void zero_division(uint64_t * instructionPointer, uint64_t * stackPointer);
+void invalid_opcode(uint64_t * instructionPointer, uint64_t * stackPointer);
 
-exception_ptr exceptions[] = {zero_division};
+exception_ptr exceptions[] = {zero_division,0,0,0,0,0,invalid_opcode};
 
 void exceptionDispatcher(int exceptionNum, uint64_t * instructionPointer, uint64_t * stackPointer) {
 	exceptions[exceptionNum](instructionPointer,stackPointer);
 }
 
 void zero_division(uint64_t * instructionPointer, uint64_t * stackPointer){
-	writeStrBuffer(STD_ERR,"ERROR: DIVISION POR CERO\n");
+	writeStrBuffer(STD_ERR,"ERROR: DIVISION BY ZERO\n");
+	writeRegisters(instructionPointer, stackPointer);
+}
+
+void invalid_opcode(uint64_t * instructionPointer, uint64_t * stackPointer){
+	writeStrBuffer(STD_ERR,"ERROR: INVALID OPCODE\n");
+	writeRegisters(instructionPointer, stackPointer);
+}
+
+void writeRegisters(uint64_t * instructionPointer, uint64_t * stackPointer){
 	writeStrBuffer(STD_ERR,"RIP: ");
 	writeIntBuffer(STD_ERR,instructionPointer,16);
 	writeCharBuffer(STD_ERR,'\n');

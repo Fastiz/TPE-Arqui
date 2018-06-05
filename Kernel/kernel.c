@@ -83,6 +83,7 @@ void * initializeKernelBinary()
 	ncPrint("[Done]");
 	ncNewline();
 	ncNewline();
+	setUpBuffers();
 	return getStackBase();
 }
 
@@ -96,7 +97,7 @@ int main()
 	ncPrintHex((uint64_t)sampleCodeModuleAddress);
 	ncNewline();
 	ncPrint("  Calling the sample code module returned: ");
-	ncPrintHex(((EntryPoint)sampleCodeModuleAddress)());
+	((EntryPoint)sampleCodeModuleAddress)();
 	ncNewline();
 	ncNewline();
 

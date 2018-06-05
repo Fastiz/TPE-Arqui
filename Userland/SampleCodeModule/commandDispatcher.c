@@ -3,6 +3,7 @@
 #include "graphicClock.h"
 #include "stdio.h"
 #include "console.h"
+#include "exceptionTester.h"
 
 #define MAX_SIZE 255
 
@@ -28,17 +29,16 @@ void commandDispatcher(char * commandLine) {
 
 	}
 	parameter[j] = 0;
-	int div0;
 	if(strcmp(command,"man") == 1)
 		man(parameter);
 	else if(strcmp(command,"echo") == 1)
 		echo(parameter);
 	else if(strcmp(command,"time") == 1)
 		time();
-	else if(strcmp(command,"div0") == 1){
-		div0 = 1/0;
-		div0 = 0;
-	}
+	else if(strcmp(command,"div0") == 1)
+		div0();
+	else if(strcmp(command,"invOp") == 1)
+		invOp();
 	else if(strcmp(command,"frog") == 1)
 		printf("     @..@        \n    (\\--/)      \n   (.>__<.)               \n   ^^^  ^^^");
 	else if(strcmp(command,"clock")==1)
@@ -50,13 +50,15 @@ void commandDispatcher(char * commandLine) {
 	}
 }
 static void man(char * str) {
+	unsigned char * invalidOp = "invOp - Tests invalid operation exception.";
 	unsigned char * div0 = "div0 - Tests division by zero exception.";
 	unsigned char * echo = "echo - Prints string in standard output.";
 	unsigned char * time = "time - Displays time in hour:minutes:seconds in standard output.";
 	unsigned char * clock = "clock - Displays a digital clock in hour:minutes:seconds.";
 	unsigned char * clear = "clear - Clear the screen";
+	
 	if(*str == 0){
-		printf("This is the command mannual. The following commands are:\n%s\n%s\n%s\n%s\n%s",div0,echo,time,clock,clear);
+		printf("This is the command mannual. The following commands are:\n\n%s\n%s\n%s\n%s\n%s\n%s",invalidOp,div0,echo,time,clock,clear);
 	}
 	else{
 		if(strcmp(str,"echo") == 1)
@@ -65,8 +67,12 @@ static void man(char * str) {
 			printf(time);
 		else if(strcmp(str,"div0") == 1)
 			printf(div0);
+		else if(strcmp(str,"div0") == 1)
+			printf(invalidOp);
 		else if(strcmp(str,"clock") == 1)
 			printf(clock);
+		else if(strcmp(str,"echo") == 1)
+			printf(echo);
 		else if(strcmp(str,"clear") == 1)
 			printf(clear);
 		else

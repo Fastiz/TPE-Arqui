@@ -35,11 +35,12 @@ void init(){
   windowWidth = _syscall(_getScreenWidth);
   windowHeight = _syscall(_getScreenHeight);
   _syscall(_fillScreen,consoleBackground);
+  printf("Welcome to MikeOS. To get started, type man to check the different programs.");
 }
 
 void consoleLoop(){
-  printf("Welcome to MikeOS. To get started, type man to check the different programs.");
   stdout();
+  stderr();
   while(1){
     stdin();
     stdout();
