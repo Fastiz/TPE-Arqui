@@ -7,6 +7,7 @@ GLOBAL haltcpu
 GLOBAL _hlt
 
 GLOBAL _exception0Handler
+GLOBAL _exception6Handler
 GLOBAL _irq00Handler
 GLOBAL _irq01Handler
 GLOBAL _irq02Handler
@@ -74,7 +75,7 @@ SECTION .text
 %endmacro
 
 %macro exceptionHandler 1
-	mov rsi, [rsp] ; dirección donde ocurrió la excepción.
+	pop rsi ; dirección donde ocurrió la excepción.
 	pushState
 
 	mov rdi, %1 ; pasaje de parametro
@@ -82,8 +83,7 @@ SECTION .text
 	call exceptionDispatcher
 	popState
 
-	inc rsi ; me muevo a la proxima dirección donde ocurrió la excepción
-	jmp rsi
+	jmp main
 
 %endmacro
 
@@ -121,6 +121,10 @@ picSlaveMask:
 ;División por cero
 _exception0Handler:
 	exceptionHandler 0
+
+;Instrucción inválida
+_exception6Handler:
+	exceptionHandler 6
 
 ;8254 Timer (Timer Tick)
 _irq00Handler:
