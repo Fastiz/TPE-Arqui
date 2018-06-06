@@ -18,7 +18,7 @@ char * intToChar(int value,int base,char * buffer) {
 	//Calculate characters for each digit
 	do
 	{
-		uint32_t remainder = value % base;
+		int remainder = value % base;
 		*p++ = (remainder < 10) ? remainder + '0' : remainder + 'A' - 10;
 		digits++;
 	}

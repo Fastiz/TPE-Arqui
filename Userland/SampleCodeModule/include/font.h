@@ -265,6 +265,7 @@
 #define XXXXXXXX 0xFF
 	/// @}
 
- char * getCharPos(char c);
+//Retorna la posicion de un caracter
+char * getCharPos(char c);
 
 #endif
