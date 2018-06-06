@@ -4,9 +4,9 @@
 #include <stdint.h>
 
 struct RGB{
-  char red;
-  char green;
-  char blue;
+  unsigned char red;
+  unsigned char green;
+  unsigned char blue;
 };
 
 void * memset(void * destination, int32_t character, uint64_t length);
