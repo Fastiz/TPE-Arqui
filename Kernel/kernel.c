@@ -2,7 +2,6 @@
 #include <string.h>
 #include <lib.h>
 #include <moduleLoader.h>
-#include <naiveConsole.h>
 #include <idtLoader.h>
 #include <std_buffers.h>
 #include <videoDriver.h>
@@ -46,46 +45,18 @@ void * initializeKernelBinary()
 {
 	char buffer[10];
 
-	ncPrint("[x64BareBones]");
-	ncNewline();
 
-	ncPrint("CPU Vendor:");
-	ncPrint(cpuVendor(buffer));
-	ncNewline();
-
-	ncPrint("[Loading modules]");
-	ncNewline();
 	void * moduleAddresses[] = {
 		sampleCodeModuleAddress,
 		sampleDataModuleAddress
 	};
 
 	loadModules(&endOfKernelBinary, moduleAddresses);
-	ncPrint("[Done]");
-	ncNewline();
-	ncNewline();
 
-	ncPrint("[Initializing kernel's binary]");
-	ncNewline();
 
 	clearBSS(&bss, &endOfKernel - &bss);
 
-	ncPrint("  text: 0x");
-	ncPrintHex((uint64_t)&text);
-	ncNewline();
-	ncPrint("  rodata: 0x");
-	ncPrintHex((uint64_t)&rodata);
-	ncNewline();
-	ncPrint("  data: 0x");
-	ncPrintHex((uint64_t)&data);
-	ncNewline();
-	ncPrint("  bss: 0x");
-	ncPrintHex((uint64_t)&bss);
-	ncNewline();
 
-	ncPrint("[Done]");
-	ncNewline();
-	ncNewline();
 	setUpBuffers();
 	return getStackBase();
 }
@@ -95,7 +66,6 @@ int main()
 	load_idt();
 	setUpBuffers();
 
-		changeColorR();
 
 	void (*address)();
 	address = sampleCodeModuleAddress;
@@ -106,13 +76,4 @@ int main()
 
 
 	return 0;
-}
-
-void changeColorR(){
-	static struct RGB color = {50,50,50};
-	color.red+=20; color.green+=20; color.blue+=20;
-
-	fillScreen(color);
-
-	newTimer(1, changeColorR);
 }
