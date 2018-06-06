@@ -1,10 +1,10 @@
-#include "screenManager.h"
-#include "syscall.h"
-#include "console.h"
-#include "stdio.h"
-#include "commandDispatcher.h"
-#include "font.h"
-#include "stdlib.h"
+#include <screenManager.h>
+#include <syscall.h>
+#include <console.h>
+#include <stdio.h>
+#include <commandDispatcher.h>
+#include <font.h>
+#include <stdlib.h>
 
 #define HORIZONTAL_MARGIN 2
 #define VERTICAL_MARGIN 0
@@ -25,10 +25,10 @@ int bufferIndex = 0;
 static const char* consoleName = "Consola\\::";
 
 static const struct RGB consoleColors[6] = {{0,0,0},{255,255,255},{50,50,255},{255, 50, 50},{50,255,50},{189,183,107}};
-static int consoleBackgroundIndex = BLACK;
-static int inOutIndex = WHITE;
-static int errIndex = RED;
-static int consoleIndex = BLUE;
+static int consoleBackgroundIndex;
+static int inOutIndex;
+static int errIndex;
+static int consoleIndex;
 
 int windowWidth;
 int windowHeight;
@@ -44,6 +44,10 @@ void console(){
 void init(){
   windowWidth = _syscall(_getScreenWidth);
   windowHeight = _syscall(_getScreenHeight);
+  consoleBackgroundIndex = BLACK;
+  inOutIndex = WHITE;
+  errIndex = RED;
+  consoleIndex = BLUE;
   _syscall(_fillScreen,consoleColors[consoleBackgroundIndex]);
   printf("Welcome to MikeOS. To get started, type man to check the different programs.");
 }
