@@ -1,0 +1,20 @@
+Manual de usuario
+
+Este es el manual de usuario que contiene todos los comandos y módulos disponibles. Para ejecutarlo en consola, escriba el comando man:
+
+invOp - Realiza un test de la excepción de operación inválida.
+
+div0 - Realiza un test de la excepción de división por cero.
+
+echo - Imprime un string por salida estándar.
+
+time - Imprime la hora en formato hora:minutos:segundos.
+
+clock - Muestra un reloj digital en formato hora:minutos:segundos.
+
+clear - Limpia la consola.
+
+frog - Imprime un dibujo de una rana.
+
+theme - Cambia el tema de la consola. Parametros: text, consoletext, error, background.
+
