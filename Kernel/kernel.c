@@ -43,9 +43,6 @@ void * getStackBase()
 
 void * initializeKernelBinary()
 {
-	char buffer[10];
-
-
 	void * moduleAddresses[] = {
 		sampleCodeModuleAddress,
 		sampleDataModuleAddress
@@ -65,7 +62,6 @@ int main()
 {
 	load_idt();
 	setUpBuffers();
-
 
 	instructionPointerBackup = sampleCodeModuleAddress;
 	stackPointerBackup = getStackPointer() + 2*8;

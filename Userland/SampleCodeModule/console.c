@@ -76,7 +76,7 @@ void stdin(){
   bufferIndex=0;
   const char * text = consoleName;
   while(*text){
-    writeChar(*text, linePosition*letterSize*(CHAR_WIDTH + 1), line*letterSize*CHAR_HEIGHT, consoleColors[consoleIndex], letterSize);
+    writeChar(*text, linePosition*letterSize*(CHAR_WIDTH + 1), line*letterSize*CHAR_HEIGHT, consoleColors[consoleIndex], consoleColors[consoleBackgroundIndex], letterSize);
     linePosition++;
     text++;
   }
@@ -97,7 +97,7 @@ void stdin(){
     }else if(c){
       checkSpace();
       buffer[bufferIndex++] = c;
-      writeChar(c, linePosition*letterSize*(CHAR_WIDTH + 1), line*letterSize*CHAR_HEIGHT, consoleColors[inOutIndex], letterSize);
+      writeChar(c, linePosition*letterSize*(CHAR_WIDTH + 1), line*letterSize*CHAR_HEIGHT, consoleColors[inOutIndex] , consoleColors[consoleBackgroundIndex], letterSize);
       linePosition++;
     }
   }
@@ -118,7 +118,7 @@ void stdout(){
       newLine();
     }else{
       checkSpace();
-      writeChar(c, linePosition*letterSize*(CHAR_WIDTH + 1), line*letterSize*CHAR_HEIGHT, consoleColors[inOutIndex], letterSize);
+      writeChar(c, linePosition*letterSize*(CHAR_WIDTH + 1), line*letterSize*CHAR_HEIGHT, consoleColors[inOutIndex], consoleColors[consoleBackgroundIndex], letterSize);
       linePosition++;
     }
   }
@@ -135,7 +135,7 @@ void stderr(){
       newLine();
     }else{
       checkSpace();
-      writeChar(c, linePosition*letterSize*(CHAR_WIDTH + 1), line*letterSize*CHAR_HEIGHT, consoleColors[errIndex], letterSize);
+      writeChar(c, linePosition*letterSize*(CHAR_WIDTH + 1), line*letterSize*CHAR_HEIGHT, consoleColors[errIndex], consoleColors[consoleBackgroundIndex], letterSize);
       linePosition++;
     }
   }

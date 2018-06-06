@@ -48,7 +48,6 @@ void drawClock(){
         posX = MARGIN;
         char clockTime[9] = {0};
         clockString(clockTime);
-        int oldIndex;
         switch(c) {
             case 'i':
                 if(size != maxSize) {
@@ -76,8 +75,8 @@ void drawClock(){
                 _syscall(_beep,10);
                 break;
 
-            case 'b':
-                oldIndex = backgroundColorIndex;
+            case 'b': {
+                int oldIndex = backgroundColorIndex;
                 backgroundColorIndex++;
                 if(numbersColor == backgroundColorIndex)
                     backgroundColorIndex++;
@@ -88,11 +87,12 @@ void drawClock(){
                 }
                 _syscall(_replaceColor, colors[oldIndex], colors[backgroundColorIndex]);
                 break;
+            }
 
         }
 
         for(int i = 0; i < 8; i++) {
-            writeCharWithBackground(clockTime[i], posX,posY,colors[numbersColor], colors[backgroundColorIndex], size);
+            writeChar(clockTime[i], posX,posY,colors[numbersColor], colors[backgroundColorIndex], size);
             posX += (CHAR_WIDTH + 1) * size;
         }
     }
