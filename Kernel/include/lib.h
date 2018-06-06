@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 
+//Estructura para RGB.
 struct RGB{
   unsigned char red;
   unsigned char green;
