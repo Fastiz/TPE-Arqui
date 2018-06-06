@@ -16,6 +16,8 @@
 #define _restoreScreen 14
 #define _fillScreen 15
 #define _writeBlock 16
+#define _beep 17
+#define _unbeep 18
 
 uint64_t _syscall(uint64_t, ...);
 

@@ -20,5 +20,8 @@ void _replaceColor(struct RGB colorOld, struct RGB colorNew);
 void _backupScreen();
 void _restoreScreen();
 void _fillScreen();
+void _beep(uint64_t time);
+void _activateBeep();
+void _deactivateBeep();
 
 #endif
