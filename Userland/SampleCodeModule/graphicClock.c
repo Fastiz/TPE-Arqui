@@ -13,8 +13,9 @@ int size = 20;
 int helpStartRow;
 int helpLetterSize = 2;
 
-int numbersColor = 1;
-int backgroundColorIndex = 0;
+int numbersColor;
+int backgroundColorIndex;
+
 struct RGB helpColor = {190,180,220};
 struct RGB colors[] = {{0,0,0},{255,0,0},{0,255,0},{0,0,255},{0,255,255},{255,255,0}};
 
@@ -31,6 +32,8 @@ void static writeSettings() {
 
 void drawClock(){
 
+    int numbersColor = 1;
+    int backgroundColorIndex = 0;
     _syscall(_backupScreen);
     char c;
     while((MARGIN * 2) + ((CHAR_WIDTH+1)*size*7) + (CHAR_WIDTH*size) >= _syscall(_getScreenWidth))
