@@ -5,7 +5,7 @@
 
 #define NUM_OF_COLORS 6
 #define MARGIN 10
-#define LARGEST_MESSAGE 22 
+#define LARGEST_MESSAGE 22
 
 int posX = MARGIN;
 int posY = MARGIN;
@@ -15,7 +15,7 @@ int helpLetterSize = 2;
 
 int numbersColor = 1;
 int backgroundColorIndex = 0;
-struct RGB helpColor = {190,180,220};  
+struct RGB helpColor = {190,180,220};
 struct RGB colors[] = {{0,0,0},{255,0,0},{0,255,0},{0,0,255},{0,255,255},{255,255,0}};
 
 void static writeSettings() {
@@ -35,20 +35,20 @@ void drawClock(){
     char c;
     while((MARGIN * 2) + ((CHAR_WIDTH+1)*size*7) + (CHAR_WIDTH*size) >= _syscall(_getScreenWidth))
         size--;
-    
+
     helpStartRow = _syscall(_getScreenHeight) - MARGIN - ((CHAR_HEIGHT + 1) * helpLetterSize * 5);
     while(helpStartRow < MARGIN + (CHAR_HEIGHT) * size)
         size--;
 
     int maxSize = size;
-    
+
     writeSettings();
-    
+
     while((c = _syscall(_read, 0)) != 'q') {
         posX = MARGIN;
         char clockTime[9] = {0};
         clockString(clockTime);
-
+        int oldIndex;
         switch(c) {
             case 'i':
                 if(size != maxSize) {
@@ -57,14 +57,14 @@ void drawClock(){
                 }
                 break;
 
-            case 'r': 
+            case 'r':
                 if(size - 1 != 0){
                     size--;
                     _syscall(_writeBlock,0,0,colors[backgroundColorIndex],(MARGIN * 2) + ((CHAR_WIDTH+1)*maxSize*7) + (CHAR_WIDTH*maxSize), (CHAR_HEIGHT * maxSize) + MARGIN);
                 }
                 break;
-            
-            case 'c': 
+
+            case 'c':
                 numbersColor++;
                 if(numbersColor == backgroundColorIndex)
                     numbersColor++;
@@ -73,10 +73,11 @@ void drawClock(){
                     if(numbersColor == backgroundColorIndex)
                         numbersColor++;
                 }
+                _syscall(_beep,10);
                 break;
-            
-            case 'b': {
-                int oldIndex = backgroundColorIndex;
+
+            case 'b':
+                oldIndex = backgroundColorIndex;
                 backgroundColorIndex++;
                 if(numbersColor == backgroundColorIndex)
                     backgroundColorIndex++;
@@ -87,7 +88,7 @@ void drawClock(){
                 }
                 _syscall(_replaceColor, colors[oldIndex], colors[backgroundColorIndex]);
                 break;
-            }
+
         }
 
         for(int i = 0; i < 8; i++) {

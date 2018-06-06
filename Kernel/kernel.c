@@ -95,12 +95,24 @@ int main()
 	load_idt();
 	setUpBuffers();
 
-	beep();
+		changeColorR();
+
 	void (*address)();
 	address = sampleCodeModuleAddress;
 	instructionPointerBackup = address;
 	stackPointerBackup = getStackPointer() + 2*8;
 	address();
 
+
+
 	return 0;
+}
+
+void changeColorR(){
+	static struct RGB color = {50,50,50};
+	color.red+=20; color.green+=20; color.blue+=20;
+
+	fillScreen(color);
+
+	newTimer(1, changeColorR);
 }

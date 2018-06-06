@@ -1,6 +1,8 @@
-#ifndef BEEP
-#define BEEP
+#ifndef BEEP_H
+#define BEEP_H
 
-void beep();
+void beepasm();
+
+void unbeepasm();
 
 #endif

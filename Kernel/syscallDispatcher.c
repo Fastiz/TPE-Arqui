@@ -4,6 +4,8 @@
 #include "rtc.h"
 #include "std_buffers.h"
 #include <lib.h>
+#include <soundDriver.h>
+
 
 
 typedef uint64_t(*systemCall)();
@@ -22,12 +24,28 @@ systemCall sysCalls[] = { 0, 0, 0,
   (systemCall) _backupScreen,
   (systemCall) _restoreScreen,
   (systemCall) _fillScreen,
-  (systemCall) _writeBlock
+  (systemCall) _writeBlock,
+  (systemCall) _beep
+  // (systemCall) _activateBeep,
+  // (systemCall) _deactivateBeep
 };
+
 
 void syscallDispatcher(uint64_t index, uint64_t a, uint64_t b, uint64_t c, uint64_t d, uint64_t e){
   sysCalls[index](a, b, c, d , e);
 }
+
+void _beep(uint64_t timer){
+  beep(timer);
+}
+
+// void _activatebeep(){
+//   activateBeep();
+// }
+//
+// void _deactivateBeep(){
+//   deactivateBeep();
+// }
 
 void _writePixel(uint64_t width, uint64_t height, struct RGB color){
   writePixel(width, height, color);

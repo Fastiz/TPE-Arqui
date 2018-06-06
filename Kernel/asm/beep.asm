@@ -7,11 +7,11 @@
 ;  out 0x61, al
 ;  ret
 
-  GLOBAL beep
-GLOBAL unBeep
+  GLOBAL beepasm
+GLOBAL unbeepasm
 section .text
 
-beep:
+beepasm:
     push rbp
     mov rbp, rsp
 
@@ -30,22 +30,8 @@ beep:
     pop rbp
     ret
 
-unBeep:
-;call .pause1
+unbeepasm:
     in al, 0x61
     and al, 0xFC
-    out 0x61, al
-    ret
-
-
-.pause1:
-    mov ecx, 65535
-.pause2:
-    dec ecx
-    jne .pause2
-    dec ebx
-    jne .pause1
-    in al, 0x61 ;apaga la nota
-    and al, 0xFC ;apaga speaker
     out 0x61, al
     ret
