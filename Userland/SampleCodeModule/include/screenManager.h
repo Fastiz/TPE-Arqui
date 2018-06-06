@@ -4,9 +4,9 @@
 #define SCREEN_MANAGER_H
 
 struct RGB {
-	char red;
-	char green;
-	char blue;
+	unsigned char red;
+	unsigned char green;
+	unsigned char blue;
 };
 
 void writeChar(char c, uint64_t x, uint64_t y, struct RGB color, uint64_t size);

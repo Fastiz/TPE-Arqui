@@ -95,13 +95,11 @@ int main()
 	load_idt();
 	setUpBuffers();
 
-		changeColorR();
+	changeColorR();
 
-	void (*address)();
-	address = sampleCodeModuleAddress;
-	instructionPointerBackup = address;
+	instructionPointerBackup = sampleCodeModuleAddress;
 	stackPointerBackup = getStackPointer() + 2*8;
-	address();
+	((EntryPoint)sampleCodeModuleAddress)();
 
 
 
